@@ -43,7 +43,7 @@ const Header = () => {
           </ul>
           {!token ? (
             <Link
-              to={`login`}
+              to={`/login`}
               className="bg-blue text-white px-7 py-3 md:rounded-3xl rounded-lg text-[.9rem] cursor-pointer"
               onClick={() => {
                 setIsopen(false);
