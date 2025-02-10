@@ -1,0 +1,26 @@
+[
+    {
+        "doctorName": "General physician",
+        "logo": "./Images/Group_4134.png"
+    },
+    {
+        "doctorName": "Gynecologist",
+        "logo": "./Images/Group_4128.png"
+    },
+    {
+        "doctorName": "Dermatologist",
+        "logo": "./Images/Group_4131.png"
+    },
+    {
+        "doctorName": "Pediatricians",
+        "logo": "./Images/Group_4133.png"
+    },
+    {
+        "doctorName": "Neurologist",
+        "logo": "./Images/Group.png"
+    },
+    {
+        "doctorName": "Gastroenterologist",
+        "logo": "./Images/Mask_group_(1).png"
+    }
+]
