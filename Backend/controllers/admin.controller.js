@@ -16,7 +16,7 @@ export const adminLogin = async (req, res) => {
     }
 
     // ! get json web token
-    const token = generateJWT(process.env.ADMIN_EMAIL,process.env.AMIN_PASSWORD);
+    const token = generateJWT(process.env.ADMIN_EMAIL,process.env.ADMIN_PASSWORD);
 
     // ! if token are not available
     if (!token) {
