@@ -24,7 +24,7 @@ const Profile = () => {
 
   if (userProfileLoading) {
     return (
-      <div className="section_margin cc h-screen">
+      <div className="cc h-screen">
         <Loaders />
       </div>
     );
