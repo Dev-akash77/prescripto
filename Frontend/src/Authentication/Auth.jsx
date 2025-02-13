@@ -17,12 +17,6 @@ const Auth = () => {
     setIsLogin((prev) => {
       return !prev;
     });
-    setIsAdmin(false);
-  };
-
-  const handleAdminLogin = () => {
-    setIsAdmin(true);
-    setIsLogin(true);
   };
 
   // ! token base home page redirection
