@@ -61,14 +61,7 @@ export const StoreContextProvider = ({ children }) => {
   const handleAuthentication = async (e) => {
     e.preventDefault();
     try {
-      // ! admin login
-      if (isLogin && isAdmin) {
-        // ! admin login logics
-       return 
-        
-      }
-
-
+      
       if (!isLogin) {
         const data = await registered(fromData);
         if (data.success) {
