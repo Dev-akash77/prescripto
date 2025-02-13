@@ -8,12 +8,8 @@ export const StoreContext = createContext();
 export const StoreContextProvider = ({ children }) => {
   const [isopen, setIsopen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [token, setToken] = useState(
     JSON.parse(localStorage.getItem("token")) || false
-  ); // ! here is server token
-  const [adminTtoken, setAdminToken] = useState(
-    JSON.parse(localStorage.getItem("adminToken")) || false
   ); // ! here is server token
   const [fromData, setFromData] = useState({
     name: "",
@@ -135,8 +131,6 @@ export const StoreContextProvider = ({ children }) => {
         userProfileData,
         userProfileLoading,
         handleUpdateProfile,
-        setIsAdmin,
-        isAdmin
       }}
     >
       {children}

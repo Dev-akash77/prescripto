@@ -10,8 +10,6 @@ const Auth = () => {
     handleAuthentication,
     handleInputChange,
     token,
-    setIsAdmin,
-    isAdmin,
   } = useContext(StoreContext);
   const navigate = useNavigate();
   // ! check login or signup
@@ -38,16 +36,12 @@ const Auth = () => {
     <div className="h-screen w-screen cc">
       <div className="md:w-[24rem] w-[22rem] border rounded-xl section_gap auth_main px-[2rem] py-[2rem]">
         <h2 className="text-highlightText text-2xl font-medium">
-          {isLogin && isAdmin
-            ? `Admin/Doctors Login`
-            : isLogin
+          {isLogin
             ? `Login`
             : `Create Account`}
         </h2>
         <p className="mt-3 text-sm">
-          {isLogin && isAdmin
-            ? ""
-            : isLogin
+          {isLogin
             ? `Please log in to book appointment`
             : `Please sign up to book appointment`}
         </p>
@@ -130,13 +124,6 @@ const Auth = () => {
             >{`Click here`}</span>
           </p>
         )}
-        <p className="mt-4 text-sm flex gap-2">
-          Admin/Doctor
-          <span
-            onClick={handleAdminLogin}
-            className="text-blue border-b border-b-blue cursor-pointer"
-          >{`Login here`}</span>
-        </p>
       </div>
     </div>
   );
