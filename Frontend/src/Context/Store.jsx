@@ -8,8 +8,12 @@ export const StoreContext = createContext();
 export const StoreContextProvider = ({ children }) => {
   const [isopen, setIsopen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [token, setToken] = useState(
     JSON.parse(localStorage.getItem("token")) || false
+  ); // ! here is server token
+  const [adminTtoken, setAdminToken] = useState(
+    JSON.parse(localStorage.getItem("adminToken")) || false
   ); // ! here is server token
   const [fromData, setFromData] = useState({
     name: "",
@@ -61,6 +65,14 @@ export const StoreContextProvider = ({ children }) => {
   const handleAuthentication = async (e) => {
     e.preventDefault();
     try {
+      // ! admin login
+      if (isLogin && isAdmin) {
+        // ! admin login logics
+       return 
+        
+      }
+
+
       if (!isLogin) {
         const data = await registered(fromData);
         if (data.success) {
@@ -123,6 +135,8 @@ export const StoreContextProvider = ({ children }) => {
         userProfileData,
         userProfileLoading,
         handleUpdateProfile,
+        setIsAdmin,
+        isAdmin
       }}
     >
       {children}
