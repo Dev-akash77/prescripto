@@ -95,6 +95,7 @@ export const StoreContextProvider = ({ children }) => {
       );
       if (data?.success) {
         toast.success(data?.message);
+        allDoctorRefetch();
       }
     } catch (error) {
       console.log(error);
