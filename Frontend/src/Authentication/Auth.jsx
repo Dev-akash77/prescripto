@@ -18,6 +18,10 @@ const Auth = () => {
       return !prev;
     });
   };
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1dd5e05 (admin all doctor and add doctor function added)
 
   // ! token base home page redirection
   useEffect(() => {

@@ -20,12 +20,10 @@ export const addDoctor = async (req, res) => {
     // ! existing user
     const existingUser = await doctorModel.findOne({ email });
     if (existingUser) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Doctor allready exist with this email",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "Doctor allready exist with this email",
+      });
     }
 
     if (!name || !email || !password || !image) {
@@ -63,6 +61,7 @@ export const addDoctor = async (req, res) => {
       address,
     });
     await doctor.save();
+    console.log(doctor);
 
     res
       .status(201)

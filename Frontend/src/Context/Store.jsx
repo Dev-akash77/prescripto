@@ -61,7 +61,10 @@ export const StoreContextProvider = ({ children }) => {
   const handleAuthentication = async (e) => {
     e.preventDefault();
     try {
+<<<<<<< HEAD
       
+=======
+>>>>>>> 1dd5e05 (admin all doctor and add doctor function added)
       if (!isLogin) {
         const data = await registered(fromData);
         if (data.success) {

@@ -12,6 +12,6 @@ const doctorSchema = new Schema({
   fees: { type: Number, required: true },
   address: { type: String, required: true },
   date: { type: Number, required: true },
-  slots_booked: { type: Object, default: {} },
-});
+  slots_booked: { type:Object,default:{}},
+},{minimize:false});
 export const doctorModel = model("Doctor",doctorSchema);
