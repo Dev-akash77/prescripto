@@ -71,3 +71,17 @@ export const addDoctor = async (req, res) => {
     res.status(400).json({ success: false, message: error.message });
   }
 };
+
+// ! get all doctor
+export const getAllDoctor = async (req, res) => {
+  try {
+    const doctors = await doctorModel.find({});
+    if (!doctors) {
+      res.status(400).json({ success: false, message: "Doctors not found" });
+    }
+    res.status(200).json({ success: true, doctors });
+  } catch (error) {
+    console.log("getallDoctor controller erorr", error);
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
