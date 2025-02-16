@@ -9,7 +9,7 @@ const AddDoctor = () => {
     "Cardiologist",
     "Dermatologist",
     "Neurologist",
-    "Orthopedic Surgeon",
+    "Orthopedic",
     "Pediatrician",
     "Psychiatrist",
     "General Physician",

@@ -8,7 +8,7 @@ const Header = () => {
   const { isopen, handleToggleMenue, setIsopen, token } =
     useContext(StoreContext);
   return (
-    <div className="cc w-screen h-[5rem] fixed top-0 z-50 bg-white">
+    <div className="cc w-screen h-[4em] fixed top-0 z-50 bg-white">
       <div className="container flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2">
           <img

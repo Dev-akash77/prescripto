@@ -1,5 +1,11 @@
 import { createContext, useEffect, useState } from "react";
-import { getAllDoctor, login, profileData, registered, updatedProfileApi } from "../Api/Api";
+import {
+  getAllDoctor,
+  login,
+  profileData,
+  registered,
+  updatedProfileApi,
+} from "../Api/Api";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 
@@ -41,11 +47,11 @@ export const StoreContextProvider = ({ children }) => {
   });
 
   // ! all doctors data
-  const {data:allDoctorsData,isLoading:allDoctorsLoading} = useQuery({
-    queryKey:["allDoctors"],
-    queryFn:getAllDoctor,
-    enabled:true
-  })
+  const { data: allDoctorsData, isLoading: allDoctorsLoading } = useQuery({
+    queryKey: ["allDoctors"],
+    queryFn: getAllDoctor,
+    enabled: true,
+  });
 
   // ! handle toggle menue
   const handleToggleMenue = () => {
@@ -131,8 +137,7 @@ export const StoreContextProvider = ({ children }) => {
         userProfileLoading,
         handleUpdateProfile,
         allDoctorsData,
-        allDoctorsLoading
-
+        allDoctorsLoading,
       }}
     >
       {children}
