@@ -16,16 +16,16 @@ const AddDoctor = () => {
     "Gynecologist",
   ];
   const experienceLevels = [
-    "1 Year",
-    "2 Year",
-    "3 Year",
-    "4 Year",
-    "5 Year",
-    "6 Year",
-    "7 Year",
-    "8 Year",
-    "9 Year",
-    "10+ Year",
+    "1 Years",
+    "2 Years",
+    "3 Years",
+    "4 Years",
+    "5 Years",
+    "6 Years",
+    "7 Years",
+    "8 Years",
+    "9 Years",
+    "10+ Years",
   ];
 
   const handleDoctorFrom = (e) => {

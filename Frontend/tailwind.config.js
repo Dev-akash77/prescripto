@@ -10,6 +10,7 @@ export default {
         blueTrans: "var(--blueTrans)",
         green: "var(--green)",
         blue: "var(--blue)",
+        gray:"var(--gray)"
       },
     },
   },

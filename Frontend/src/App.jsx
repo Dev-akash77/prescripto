@@ -31,7 +31,7 @@ const App = () => {
           element: <Doctors />,
         },
         {
-          path: "/doctors/:doctorId",
+          path: "/doctors/:id",
           element: <Details />,
         },
         {

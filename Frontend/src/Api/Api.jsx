@@ -62,3 +62,15 @@ export const getAllDoctor = async () => {
     console.log("getAllDoctorapi error", error);
   }
 };
+
+
+// ! get single docttor data
+export const singleDoctor= async(id)=>{
+  try {
+    const {data} = await api.post(`/api/doctor/${id}`);
+    return data
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log("singleDoctor error", error);
+  }
+}

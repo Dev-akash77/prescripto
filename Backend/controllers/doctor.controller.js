@@ -85,3 +85,29 @@ export const getAllDoctor = async (req, res) => {
     res.status(400).json({ success: false, message: error.message });
   }
 };
+
+// ! single doctor for pagination
+export const doctorPagination = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Doctor's id not found" });
+    }
+
+    const doctor = await doctorModel.findById(id);
+
+    if (!doctor) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Doctor's not found" });
+    }
+
+    res.status(200).json({ success: true, doctor });
+  } catch (error) {
+    console.log("doctorPagination controller erorr", error);
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
