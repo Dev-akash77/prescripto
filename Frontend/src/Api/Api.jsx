@@ -5,6 +5,7 @@ export const api = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL,
 });
 
+// ! register api
 export const registered = async (fromData) => {
   try {
     const { data } = await api.post("/api/register", fromData);
@@ -15,6 +16,7 @@ export const registered = async (fromData) => {
   }
 };
 
+// ! login api
 export const login = async (email, password) => {
   try {
     const { data } = await api.post("/api/login", { email, password });
@@ -25,6 +27,7 @@ export const login = async (email, password) => {
   }
 };
 
+// ! profile data api
 export const profileData = async (token) => {
   try {
     const { data } = await api.get("/api/user/profile", {
@@ -36,7 +39,8 @@ export const profileData = async (token) => {
   }
 };
 
-export const updatedProfileApi = async (profileData,token) => {
+// ! update profile
+export const updatedProfileApi = async (profileData, token) => {
   try {
     const { data } = await api.put("/api/user/profile/update", profileData, {
       headers: { Authorization: `Bearer ${token}` },
@@ -45,5 +49,16 @@ export const updatedProfileApi = async (profileData,token) => {
   } catch (error) {
     toast.error(error.response.data.message);
     console.log("updatedProfileApi error", error);
+  }
+};
+
+// ! get all doctor api
+export const getAllDoctor = async () => {
+  try {
+    const { data } = await api.get("/api/all-doctors");
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log("getAllDoctorapi error", error);
   }
 };

@@ -2,10 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const DoctorsCard = ({ data }) => {
-  const { image, name, category, available,id } = data;
+  const { image, name, category, available,_id } = data;
   const navigate = useNavigate()
   return (
-    <div className="border border-blue rounded-lg overflow-hidden cursor-pointer hover:-translate-y-2 duration-300" onClick={()=>{navigate(`/doctors/${id}`)}}>
+    <div className="border border-blue rounded-lg overflow-hidden cursor-pointer hover:-translate-y-2 duration-300" onClick={()=>{navigate(`/doctors/${_id}`)}}>
       <div className="cc w-full bg-blueTrans">
         <img src={image} alt={name} />
       </div>

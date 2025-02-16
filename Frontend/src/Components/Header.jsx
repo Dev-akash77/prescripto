@@ -30,7 +30,7 @@ const Header = () => {
                 <li key={id}>
                   <NavLink
                     to={cur}
-                    className="uppercase navbar font-[600]"
+                    className="uppercase navbar font-[500]"
                     onClick={() => {
                       setIsopen(false);
                     }}

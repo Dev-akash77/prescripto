@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { login, profileData, registered, updatedProfileApi } from "../Api/Api";
+import { getAllDoctor, login, profileData, registered, updatedProfileApi } from "../Api/Api";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 
@@ -40,6 +40,13 @@ export const StoreContextProvider = ({ children }) => {
     enabled: !!token,
   });
 
+  // ! all doctors data
+  const {data:allDoctorsData,isLoading:allDoctorsLoading} = useQuery({
+    queryKey:["allDoctors"],
+    queryFn:getAllDoctor,
+    enabled:true
+  })
+
   // ! handle toggle menue
   const handleToggleMenue = () => {
     setIsopen((prev) => {
@@ -61,10 +68,6 @@ export const StoreContextProvider = ({ children }) => {
   const handleAuthentication = async (e) => {
     e.preventDefault();
     try {
-<<<<<<< HEAD
-      
-=======
->>>>>>> 1dd5e05 (admin all doctor and add doctor function added)
       if (!isLogin) {
         const data = await registered(fromData);
         if (data.success) {
@@ -127,6 +130,9 @@ export const StoreContextProvider = ({ children }) => {
         userProfileData,
         userProfileLoading,
         handleUpdateProfile,
+        allDoctorsData,
+        allDoctorsLoading
+
       }}
     >
       {children}
