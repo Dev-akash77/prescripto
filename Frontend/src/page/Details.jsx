@@ -1,15 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { singleDoctor } from "../Api/Api";
 import Loaders from "./../UI/Loaders";
 import { PiSealCheckFill } from "react-icons/pi";
 import { IoMdInformationCircleOutline } from "react-icons/io";
+import { getDate_Time } from "./../Utils/Function/getDate_Time";
 const Details = () => {
   const { id } = useParams();
-
+  const [slotDate, setSlotDate] = useState([]);
+  const [slotIndex, setSlotIndex] = useState(null);
   useEffect(() => {
     window.scroll(0, 0);
+    getDate_Time(setSlotDate);
   }, [id]);
 
   const { data, isLoading } = useQuery({
@@ -62,6 +65,46 @@ const Details = () => {
 
             <div className="flex items-center mt-5">
               Appointment fee: ${fees}
+            </div>
+          </div>
+        </div>
+
+        <div className="flex justify-end w-full ">
+          <div className="mt-5 md:w-[74.5%] overflow-x-auto">
+            <h2 className="text-black">Booking slots</h2>
+            <div className="flex items-center mt-5 gap-4">
+              <div
+                className={`py-6 px-8 rounded-full cursor-pointer ${
+                  slotIndex === null ? " bg-blue" : "border border-[#b5b5b5dd]"
+                }`}
+                onClick={() => {
+                  setSlotIndex(null);
+                }}
+              ></div>
+              {slotDate.map((cur, id) => {
+                const formattedWeek = new Date(cur.date).toLocaleDateString(
+                  "en-US",
+                  { weekday: "short" }
+                );
+                const formattedDate = new Date(cur.date).getDate();
+
+                return (
+                  <div
+                    className={`py-5 px-3 rounded-full border border-[#b5b5b5dd] cc cursor-pointer transition-all duration-300
+                      ${
+                        slotIndex !== null &&
+                        slotDate[slotIndex]?.date === cur?.date
+                          ? "bg-blue border-none text-white"
+                          : ""
+                      }`}
+                    key={id}
+                    onClick={() => setSlotIndex(id)}
+                  >
+                    <p className="font-medium uppercase">{formattedWeek}</p>
+                    <p className="text-lg">{formattedDate}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

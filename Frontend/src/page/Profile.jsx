@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../Context/Store";
-import { getNameFirstLetter } from "../Utils/Function";
 import { useNavigate } from "react-router-dom";
 import Loaders from "../UI/Loaders";
+import { getNameFirstLetter } from './../Utils/Function/getFirstLetter';
 
 const Profile = () => {
   const {

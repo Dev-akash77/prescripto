@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { StoreContext } from "../Context/Store";
 import { Link } from "react-router-dom";
-import { getNameFirstLetter } from './../Utils/Function';
+import { getNameFirstLetter } from './../Utils/Function/getFirstLetter';
 
 const Account = () => {
   const { token,userProfileData,setToken} = useContext(StoreContext);
