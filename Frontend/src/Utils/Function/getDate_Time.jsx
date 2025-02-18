@@ -9,7 +9,7 @@ export const getDate_Time = (setSlotDate) => {
     //! Store the correct date before modifying currentDate
     let dateStr = currentDate.toDateString();
 
-    //! Set end time for the day at 9:00 PM
+    //! Set end time for the day at 12:00 AM
     let endTime = new Date(currentDate);
     endTime.setHours(21, 0, 0, 0);
 
