@@ -38,6 +38,7 @@ const Details = () => {
 
   const handleSlotTime = (id) => {
     setSlotIndex(id);
+    setDoctorSlotTime(null)
   };
   return (
     <div className="section_margin cc">
