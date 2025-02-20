@@ -23,6 +23,19 @@ export const appointmentBook = async (req, res) => {
         .json({ success: false, message: "Doctor not available" });
     }
 
+    if (!slotDate) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Select Date for Book Appointment" });
+    }
+
+    if (!slotTime) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Select Time for Book Appointment" });
+    }
+
+
     let slots_booked = doctorData.slots_booked;
 
     if (slots_booked[slotDate]) {

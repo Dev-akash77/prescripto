@@ -47,7 +47,7 @@ export const StoreContextProvider = ({ children }) => {
   });
 
   // ! all doctors data
-  const { data: allDoctorsData, isLoading: allDoctorsLoading } = useQuery({
+  const { data: allDoctorsData, isLoading: allDoctorsLoading, refetch:allDoctorsRefetch } = useQuery({
     queryKey: ["allDoctors"],
     queryFn: getAllDoctor,
     enabled: true,
@@ -138,6 +138,7 @@ export const StoreContextProvider = ({ children }) => {
         handleUpdateProfile,
         allDoctorsData,
         allDoctorsLoading,
+        allDoctorsRefetch
       }}
     >
       {children}

@@ -1,19 +1,36 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { singleDoctor } from "../Api/Api";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { bookAppointment, singleDoctor } from "../Api/Api";
 import Loaders from "./../UI/Loaders";
 import { PiSealCheckFill } from "react-icons/pi";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { getDate_Time } from "./../Utils/Function/getDate_Time";
+import { StoreContext } from "./../Context/Store";
+import { toast } from "react-toastify";
 const Details = () => {
+  const navigate = useNavigate();
+  const { token, allDoctorsRefetch,setIsLogin } = useContext(StoreContext);
   const { id } = useParams();
   const [slotDate, setSlotDate] = useState([]);
   const [slotIndex, setSlotIndex] = useState(null);
   const [doctorSlotTime, setDoctorSlotTime] = useState(null);
   // ! doctor slots data
   let doctorSlotDate = slotDate[slotIndex];
-
+  const fmMonth = [
+    "jan",
+    "feb",
+    "mar",
+    "apr",
+    "may",
+    "jun",
+    "jul",
+    "aug",
+    "sep",
+    "oct",
+    "nov",
+    "dec",
+  ];
   useEffect(() => {
     window.scroll(0, 0);
     getDate_Time(setSlotDate);
@@ -38,8 +55,45 @@ const Details = () => {
 
   const handleSlotTime = (id) => {
     setSlotIndex(id);
-    setDoctorSlotTime(null)
+    setDoctorSlotTime(null);
   };
+
+  // ! handle book appointment
+  const handleBookAppointment = async () => {
+    const date = new Date(slotDate[slotIndex]?.date);
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const formatedDate = `${day} ${fmMonth[month - 1]} ${year}`;
+
+    if (!token) {
+      toast.warn("Login First to Book Appointment");
+      setIsLogin(true)
+      return navigate("/login");
+    }
+
+    if (slotIndex===null) {
+      return toast.error("Select Date for Book Appointment");
+    }
+    
+    try {
+      const data = await bookAppointment(
+        id,
+        formatedDate,
+        doctorSlotTime,
+        token
+      );
+      if (data?.success) {
+        toast.success(data.message);
+        setSlotIndex(null);
+        setDoctorSlotTime(null);
+        allDoctorsRefetch();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="section_margin cc">
       <div className="container mt-[1rem]">
@@ -142,13 +196,8 @@ const Details = () => {
               )}
             </div>
             <button
-              className={`text-white py-[.8rem] px-[5rem] w-max rounded-full mt-8 cursor-pointer 
-                  ${
-                    slotIndex === null || !doctorSlotDate?.slots?.length
-                      ? "bg-[#82a7ff] cursor-not-allowed"
-                      : "bg-blue"
-                  }`}
-              disabled={slotIndex === null || !doctorSlotDate?.slots?.length}
+              className={`text-white py-[.8rem] px-[5rem] w-max rounded-full mt-8 cursor-pointer bg-blue`}
+              onClick={handleBookAppointment}
             >
               Book an appointment
             </button>

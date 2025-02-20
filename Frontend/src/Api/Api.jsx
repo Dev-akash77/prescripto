@@ -63,14 +63,28 @@ export const getAllDoctor = async () => {
   }
 };
 
-
 // ! get single docttor data
-export const singleDoctor= async(id)=>{
+export const singleDoctor = async (id) => {
   try {
-    const {data} = await api.post(`/api/doctor/${id}`);
-    return data
+    const { data } = await api.post(`/api/doctor/${id}`);
+    return data;
   } catch (error) {
     toast.error(error.response.data.message);
     console.log("singleDoctor error", error);
   }
-}
+};
+
+// ! book appointment doctor
+export const bookAppointment = async (doctorId, slotDate, slotTime, token) => {
+  try {
+    const { data } = await api.post(
+      `/api/book-appointment`,
+      { doctorId, slotDate, slotTime },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log("bookAppointment error", error);
+  }
+};
