@@ -30,7 +30,7 @@ export const register = async (req, res) => {
     if (password.length <= 6) {
       return res.status(400).json({
         success: false,
-        message: "Please add strong password",z
+        message: "Please add strong password",
       });
     }
     const salt = await bcrypt.genSalt(10);

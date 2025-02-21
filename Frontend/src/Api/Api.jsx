@@ -88,3 +88,16 @@ export const bookAppointment = async (doctorId, slotDate, slotTime, token) => {
     console.log("bookAppointment error", error);
   }
 };
+
+// ! get all book appointment
+export const getAllAppointment = async (token) => {
+  try {
+    const { data } = await api.get("/api/user/appointment", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log("getAllAppointment error", error);
+  }
+};

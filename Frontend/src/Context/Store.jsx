@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import {
+  getAllAppointment,
   getAllDoctor,
   login,
   profileData,
@@ -46,8 +47,23 @@ export const StoreContextProvider = ({ children }) => {
     enabled: !!token,
   });
 
+  // ! user appontment data
+  const {
+    data: allAppointmentData,
+    isLoading: allAppointmentLoading,
+    refetch: allAppointmentRefetch,
+  } = useQuery({
+    queryKey: ["allAppointment", token],
+    queryFn: () => getAllAppointment(token),
+    enabled: !!token,
+  });
+
   // ! all doctors data
-  const { data: allDoctorsData, isLoading: allDoctorsLoading, refetch:allDoctorsRefetch } = useQuery({
+  const {
+    data: allDoctorsData,
+    isLoading: allDoctorsLoading,
+    refetch: allDoctorsRefetch,
+  } = useQuery({
     queryKey: ["allDoctors"],
     queryFn: getAllDoctor,
     enabled: true,
@@ -76,7 +92,7 @@ export const StoreContextProvider = ({ children }) => {
     try {
       if (!isLogin) {
         const data = await registered(fromData);
-        if (data.success) {
+        if (data?.success) {
           toast.success(data.message);
           setFromData({ name: "", email: "", password: "" });
           setIsLogin(true);
@@ -138,7 +154,10 @@ export const StoreContextProvider = ({ children }) => {
         handleUpdateProfile,
         allDoctorsData,
         allDoctorsLoading,
-        allDoctorsRefetch
+        allDoctorsRefetch,
+        allAppointmentData,
+        allAppointmentLoading,
+        allAppointmentRefetch
       }}
     >
       {children}

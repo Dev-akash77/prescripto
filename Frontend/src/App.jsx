@@ -12,6 +12,7 @@ import Auth from "./Authentication/Auth";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query"
 import { ToastContainer } from "react-toastify";
 import Profile from "./page/Profile";
+import Appointment from "./page/Appointment";
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -45,6 +46,10 @@ const App = () => {
         {
           path: "/profile",
           element: <Profile />,
+        },
+        {
+          path: "/appointments",
+          element: <Appointment />,
         },
         {
           path: "*",

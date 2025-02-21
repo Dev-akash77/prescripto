@@ -2,6 +2,7 @@ import { userModel } from "../models/user.model.js";
 import { doctorModel } from "./../models/doctor.model.js";
 import { appointmentModel } from "./../models/appointment.model.js";
 
+// ! book appointment
 export const appointmentBook = async (req, res) => {
   try {
     const { doctorId, slotDate, slotTime } = req.body;
@@ -34,7 +35,6 @@ export const appointmentBook = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Select Time for Book Appointment" });
     }
-
 
     let slots_booked = doctorData.slots_booked;
 
@@ -70,6 +70,18 @@ export const appointmentBook = async (req, res) => {
     res.status(201).json({ success: true, message: "Appointment Booked" });
   } catch (error) {
     console.log("appointmentBook controller error", error);
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+// ! get all book appointment
+export const getAllAppointment = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const appointment = await appointmentModel.find({ userId });
+      res.status(200).json({ success: true, appointment });
+  } catch (error) {
+    console.log("getAllAppointment controller error");
     res.status(400).json({ success: false, message: error.message });
   }
 };

@@ -10,13 +10,21 @@ import { StoreContext } from "./../Context/Store";
 import { toast } from "react-toastify";
 const Details = () => {
   const navigate = useNavigate();
-  const { token, allDoctorsRefetch,setIsLogin } = useContext(StoreContext);
+  const { token, allDoctorsRefetch,setIsLogin,allAppointmentRefetch } = useContext(StoreContext);
   const { id } = useParams();
   const [slotDate, setSlotDate] = useState([]);
   const [slotIndex, setSlotIndex] = useState(null);
   const [doctorSlotTime, setDoctorSlotTime] = useState(null);
   // ! doctor slots data
   let doctorSlotDate = slotDate[slotIndex];
+
+
+  const { data, isLoading,refetch } = useQuery({
+    queryKey: ["details", id],
+    queryFn: () => singleDoctor(id),
+    enabled: true,
+  });
+
   const fmMonth = [
     "jan",
     "feb",
@@ -33,14 +41,9 @@ const Details = () => {
   ];
   useEffect(() => {
     window.scroll(0, 0);
-    getDate_Time(setSlotDate);
-  }, [id]);
+    getDate_Time(setSlotDate,data);
+  }, [data]);
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["details", id],
-    queryFn: () => singleDoctor(id),
-    enabled: true,
-  });
 
   if (isLoading) {
     return (
@@ -64,7 +67,7 @@ const Details = () => {
     const day = date.getDate();
     const month = date.getMonth();
     const year = date.getFullYear();
-    const formatedDate = `${day} ${fmMonth[month - 1]} ${year}`;
+    const formatedDate = `${day} ${fmMonth[month]} ${year}`;
 
     if (!token) {
       toast.warn("Login First to Book Appointment");
@@ -88,6 +91,9 @@ const Details = () => {
         setSlotIndex(null);
         setDoctorSlotTime(null);
         allDoctorsRefetch();
+        navigate("/appointments");
+        refetch();
+        allAppointmentRefetch();
       }
     } catch (error) {
       console.log(error);
