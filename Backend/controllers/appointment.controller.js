@@ -79,9 +79,51 @@ export const getAllAppointment = async (req, res) => {
   try {
     const userId = req.user._id;
     const appointment = await appointmentModel.find({ userId });
-      res.status(200).json({ success: true, appointment });
+    res.status(200).json({ success: true, appointment });
   } catch (error) {
     console.log("getAllAppointment controller error");
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+// ! cancle appointment
+export const cancelAppointment = async (req, res) => {
+  try {
+    const { appointmentId } = req.body;
+    const userId = req.user._id;
+    const appointData = await appointmentModel.findById(appointmentId);
+
+    if (!appointData) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Appointment data not found" });
+    }
+
+    if (appointData.userId === userId) {
+      return res 
+        .status(400)
+        .json({ success: false, message: "User not authoirized login again" });
+    }
+
+    await appointmentModel.findByIdAndUpdate(appointmentId, { cancle: true }); //! update cancle : true from appointment data
+
+    const { slotDate, slotTime, doctorId } = appointData;
+
+    const doctortData = await doctorModel.findById(doctorId);
+    let slots_booked = doctortData.slots_booked;
+    slots_booked[slotDate] = slots_booked[slotDate].filter(
+      (cur) => cur !== slotTime
+    );
+    if (doctortData.slots_booked[slotDate].length === 0) {
+      delete doctortData.slots_booked[slotDate];
+    }
+
+    await doctorModel.findByIdAndUpdate(doctorId, { slots_booked });
+    res
+      .status(200)
+      .json({ success: true, message: "Cancle Appointment", doctortData });
+  } catch (error) {
+    console.log("cancelAppointment controller error");
     res.status(400).json({ success: false, message: error.message });
   }
 };

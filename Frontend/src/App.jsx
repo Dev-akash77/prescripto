@@ -13,6 +13,8 @@ import {QueryClient, QueryClientProvider} from "@tanstack/react-query"
 import { ToastContainer } from "react-toastify";
 import Profile from "./page/Profile";
 import Appointment from "./page/Appointment";
+import DoctorsLayout from "./page/All_Doctors";
+import Doctor_Speciality from './page/Doctor_Speciality';
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -30,9 +32,19 @@ const App = () => {
         {
           path: "/doctors",
           element: <Doctors />,
+          children:[
+            {
+              index:true,
+              element:<DoctorsLayout/>
+            },
+            {
+              path:"/doctors/:speciality",
+              element:<Doctor_Speciality/>
+            }
+          ]
         },
         {
-          path: "/doctors/:id",
+          path: "/doctors/details/:id",
           element: <Details />,
         },
         {

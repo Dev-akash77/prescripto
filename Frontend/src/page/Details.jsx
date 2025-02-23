@@ -8,9 +8,17 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 import { getDate_Time } from "./../Utils/Function/getDate_Time";
 import { StoreContext } from "./../Context/Store";
 import { toast } from "react-toastify";
+import { related_doctor } from "../Utils/Function/Related_doctor";
+import DoctorsCard from "../Common/DoctorsCard";
 const Details = () => {
   const navigate = useNavigate();
-  const { token, allDoctorsRefetch,setIsLogin,allAppointmentRefetch } = useContext(StoreContext);
+  const {
+    token,
+    allDoctorsRefetch,
+    setIsLogin,
+    allAppointmentRefetch,
+    allDoctorsData,
+  } = useContext(StoreContext);
   const { id } = useParams();
   const [slotDate, setSlotDate] = useState([]);
   const [slotIndex, setSlotIndex] = useState(null);
@@ -18,8 +26,7 @@ const Details = () => {
   // ! doctor slots data
   let doctorSlotDate = slotDate[slotIndex];
 
-
-  const { data, isLoading,refetch } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["details", id],
     queryFn: () => singleDoctor(id),
     enabled: true,
@@ -41,9 +48,8 @@ const Details = () => {
   ];
   useEffect(() => {
     window.scroll(0, 0);
-    getDate_Time(setSlotDate,data);
+    getDate_Time(setSlotDate, data);
   }, [data]);
-
 
   if (isLoading) {
     return (
@@ -55,6 +61,8 @@ const Details = () => {
   // ! destructre doctor data
   const { image, name, speciality, degree, experience, about, fees } =
     data?.doctor;
+
+  const relatedDoctor = related_doctor(speciality, allDoctorsData?.doctors, id); // ! related doctors
 
   const handleSlotTime = (id) => {
     setSlotIndex(id);
@@ -71,14 +79,14 @@ const Details = () => {
 
     if (!token) {
       toast.warn("Login First to Book Appointment");
-      setIsLogin(true)
+      setIsLogin(true);
       return navigate("/login");
     }
 
-    if (slotIndex===null) {
+    if (slotIndex === null) {
       return toast.error("Select Date for Book Appointment");
     }
-    
+
     try {
       const data = await bookAppointment(
         id,
@@ -207,6 +215,27 @@ const Details = () => {
             >
               Book an appointment
             </button>
+          </div>
+        </div>
+
+        {/* related doctor */}
+        <div className="section_gap">
+          <h2 className="cc md:text-3xl text-2xl font-medium">
+            Related Doctors
+          </h2>
+          <p className="cc mt-3">
+            Simply browse through our extensive list of trusted doctors.
+          </p>
+
+          {relatedDoctor?.length === 0 && (
+            <p className="cc mt-[3rem] text-xl">No Related Doctors Available</p>
+          )}
+
+          <div className="grid place-content-center md:grid-cols-5 grid-cols-1 gap-5 w-full mt-[3rem]">
+            {relatedDoctor?.lentgh !== 0 &&
+              relatedDoctor.map((cur, id) => {
+                return <DoctorsCard data={cur} key={id} />;
+              })}
           </div>
         </div>
       </div>

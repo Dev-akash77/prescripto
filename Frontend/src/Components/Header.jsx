@@ -40,6 +40,7 @@ const Header = () => {
                 </li>
               );
             })}
+            <li><a href="https://prescripto-akash-admin.vercel.app/" target="_blank" className="uppercase navbar font-[500]">Admin</a></li>
           </ul>
           {!token ? (
             <Link

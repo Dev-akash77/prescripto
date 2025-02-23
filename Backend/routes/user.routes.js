@@ -6,7 +6,7 @@ import {
   updateProfileData,
 } from "../controllers/auth.controller.js";
 import { userProfileMiddleware } from "../middleware/userProfile.middleware.js";
-import { appointmentBook, getAllAppointment } from "../controllers/appointment.controller.js";
+import { appointmentBook, cancelAppointment, getAllAppointment } from "../controllers/appointment.controller.js";
 
 const router = express();
 
@@ -16,5 +16,6 @@ router.post("/api/book-appointment", userProfileMiddleware,appointmentBook);
 router.get("/api/user/appointment",userProfileMiddleware,getAllAppointment)
 router.get("/api/user/profile",userProfileMiddleware,getProfileData);
 router.put("/api/user/profile/update",userProfileMiddleware,updateProfileData);
+router.post("/api/user/appointment/cancel",userProfileMiddleware,cancelAppointment);
 
 export const authRouter = router;
