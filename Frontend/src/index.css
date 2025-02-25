@@ -90,13 +90,8 @@ body {
 }
 .main_special {
   background-image: linear-gradient(#afc1dc, #e2e5ed);
-}
-.special_main_cont {
-  transition: 0.3s linear;
-}
-
-.special_main_cont:hover {
-  transform: translateY(-1rem);
+  border: none;
+  outline: none;
 }
 
 .auth_main {

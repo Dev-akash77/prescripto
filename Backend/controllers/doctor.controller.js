@@ -76,6 +76,7 @@ export const addDoctor = async (req, res) => {
 export const getAllDoctor = async (req, res) => {
   try {
     const doctors = await doctorModel.find({});
+    
     if (!doctors) {
       res.status(400).json({ success: false, message: "Doctors not found" });
     }

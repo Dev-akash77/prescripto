@@ -7,7 +7,7 @@ const All_Doctors = () => {
   return (
     <div className='grid place-content-center md:grid-cols-4 grid-cols-1 gap-5 w-full'>
       {
-        allDoctorsData?.doctors.map((cur,id)=>{
+        allDoctorsData?.doctors?.map((cur,id)=>{
           return <DoctorsCard data={cur} key={id}/>
         })
       }

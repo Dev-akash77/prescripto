@@ -159,7 +159,7 @@ const Details = () => {
                   setDoctorSlotTime(null);
                 }}
               ></div>
-              {slotDate.map((cur, id) => {
+              {slotDate?.map((cur, id) => {
                 const formattedWeek = new Date(cur.date).toLocaleDateString(
                   "en-US",
                   { weekday: "short" }
@@ -233,7 +233,7 @@ const Details = () => {
 
           <div className="grid place-content-center md:grid-cols-5 grid-cols-1 gap-5 w-full mt-[3rem]">
             {relatedDoctor?.lentgh !== 0 &&
-              relatedDoctor.map((cur, id) => {
+              relatedDoctor?.map((cur, id) => {
                 return <DoctorsCard data={cur} key={id} />;
               })}
           </div>

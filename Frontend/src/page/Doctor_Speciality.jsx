@@ -11,7 +11,7 @@ const Doctor_Speciality = () => {
 
   return (
     <div className="grid place-content-center md:grid-cols-4 grid-cols-1 gap-5 w-full">
-      {Speciality_Doctor.map((cur, id) => {
+      {Speciality_Doctor?.map((cur, id) => {
         return <DoctorsCard data={cur} key={id} />;
       })}
     </div>
