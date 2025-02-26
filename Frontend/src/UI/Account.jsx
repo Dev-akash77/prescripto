@@ -5,11 +5,12 @@ import { getNameFirstLetter } from "./../Utils/Function/getFirstLetter";
 import { RiArrowDropUpLine } from "react-icons/ri";
 import { RiArrowDropDownLine } from "react-icons/ri";
 const Account = () => {
-  const { userProfileData, setToken } = useContext(StoreContext);
+  const { userProfileData, setToken,setIsopen } = useContext(StoreContext);
   const [first, setFirst] = useState(false);
   const handleLogout = () => {
     setFirst(false);
     setToken(false);
+    setIsopen(false);
   };
   return (
     <div className="md:cc ">
@@ -37,6 +38,7 @@ const Account = () => {
               className="capitalize font-medium cursor-pointer hover:text-blue duration-150"
               onClick={() => {
                 setFirst(false);
+                setIsopen(false);
               }}
             >
               my profile
@@ -48,6 +50,7 @@ const Account = () => {
               className="capitalize font-medium cursor-pointer hover:text-blue duration-150"
               onClick={() => {
                 setFirst(false);
+                setIsopen(false);
               }}
             >
               my appointments

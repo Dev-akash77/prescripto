@@ -1,5 +1,7 @@
 import { generateJWT } from "../Utils/Function/generateJWT_Token.js";
 import { doctorModel } from "./../models/doctor.model.js";
+import { appointmentModel } from "./../models/appointment.model.js";
+import { userModel } from "./../models/user.model.js";
 
 // ! admin login
 export const adminLogin = async (req, res) => {
@@ -88,6 +90,42 @@ export const updateDoctorsAvailablity = async (req, res) => {
       "admin updateDoctorsAvailablity controller error",
       error.message
     );
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+//! get all admin appointment
+export const getAdminAppointment = async (req, res) => {
+  try {
+    const appointment = await appointmentModel.find({});
+
+    if (!appointment) {
+      return res
+        .status(400)
+        .json({ success: false, message: "appointment not found" });
+    }
+
+    res.status(200).json({ success: true, appointment });
+  } catch (error) {
+    console.log("admin getAdminAppointment controller error", error.message);
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+// ! get all user
+export const getAllUser = async (req, res) => {
+  try {
+    const user = await userModel.find({}).select("-password");
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "user not found" });
+    }
+
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    console.log("admin getAllUser controller error", error.message);
     res.status(400).json({ success: false, message: error.message });
   }
 };

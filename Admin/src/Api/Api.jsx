@@ -56,3 +56,29 @@ export const updateDoctorAvailable = async (_id, available, aToken) => {
     console.log("updateDoctorAvailable", error);
   }
 };
+
+// ! get all appointment
+export const getallAppointment = async (aToken) => {
+  try {
+    const { data } = await api.get("/api/admin/all-appointment", {
+      headers: { aToken },
+    });
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log("getallAppointment", error);
+  }
+};
+
+// ! get all user
+export const getallUser = async (aToken) => {
+  try {
+    const { data } = await api.get("/api/admin/all-user", {
+      headers: { aToken },
+    });
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log("getallUser", error);
+  }
+};

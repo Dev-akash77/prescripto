@@ -3,13 +3,15 @@ import { useQuery } from "@tanstack/react-query";
 import {
   addDoctor,
   adminLogin,
+  getallAppointment,
   getAllDoctor,
+  getallUser,
   updateDoctorAvailable,
 } from "../Api/Api";
 import { toast } from "react-toastify";
 
 export const StoreContext = createContext();
-export const StoreContextProvider = ({ children }) => {
+export const StoreContextProvider = ({children} ) => {
   const [isAdmin, setIsAdmin] = useState(true);
   const [adminToken, setAdminToken] = useState(
     JSON.parse(localStorage.getItem("adminToken")) || false
@@ -41,10 +43,26 @@ export const StoreContextProvider = ({ children }) => {
     isLoading: doctorLoading,
     refetch: allDoctorRefetch,
   } = useQuery({
-    queryKey: ["allDoctorsData", adminToken],
+    queryKey: ["allDoctor", adminToken],
     queryFn: () => getAllDoctor(adminToken),
     enabled: !!adminToken,
   });
+
+
+// ! get all appointment
+ const {data:allUserData} = useQuery({
+  queryKey:["allUser"],
+  queryFn:()=>getallUser(adminToken),
+  enabled:!!adminToken
+ })
+
+// ! get all appointment
+ const {data:allAppointmentData,refetch:allAppointmentRefetch,isLoading:appointmentLoading} = useQuery({
+  queryKey:["allAppointment"],
+  queryFn:()=>getallAppointment(adminToken),
+  enabled:!!adminToken
+ })
+
   // ! authentication
   const handleAuthentication = async (e) => {
     e.preventDefault();
@@ -66,6 +84,7 @@ export const StoreContextProvider = ({ children }) => {
       if (data.success) {
         toast.success(data.message);
         allDoctorRefetch(); //! after adding doctor refresh doctor data
+        allAppointmentRefetch(); //! after adding doctor refresh appointment data
         setDoctroFromData({
           name: "",
           email: "",
@@ -113,7 +132,7 @@ export const StoreContextProvider = ({ children }) => {
       setFormData({ email: "", password: "" });
     }
   }, [loginData]);
-
+  
   return (
     <StoreContext.Provider
       value={{
@@ -130,6 +149,9 @@ export const StoreContextProvider = ({ children }) => {
         allDoctotrData,
         doctorLoading,
         changeDoctorAvailable,
+        allAppointmentData,
+        allUserData,
+        appointmentLoading
       }}
     >
       {children}
