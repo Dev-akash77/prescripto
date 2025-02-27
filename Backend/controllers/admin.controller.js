@@ -129,3 +129,54 @@ export const getAllUser = async (req, res) => {
     res.status(400).json({ success: false, message: error.message });
   }
 };
+
+// ! cancle appointment only admin
+export const cancleAdminAppointment = async (req, res) => {
+  try {
+    const { appointmentID } = req.body;
+    const appointmentData = await appointmentModel.findById(appointmentID);
+
+    if (!appointmentData) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Appointment not found" });
+    }
+    await appointmentModel.findByIdAndUpdate(appointmentID, { cancle: true });
+
+    const { doctorData, slotTime, slotDate } = appointmentData;
+    const slots_booked = doctorData.slots_booked;
+    slots_booked[slotDate] = slots_booked[slotDate].filter(
+      (cur) => cur !== slotTime
+    );
+
+    if (doctorData.slots_booked[slotDate].length === 0) {
+      delete doctorData.slots_booked[slotDate];
+    }
+
+    await doctorModel.findByIdAndUpdate(doctorData._id, { slots_booked });
+    res.status(200).json({ success: true, message: "Cancle Appointment" });
+  } catch (error) {
+    console.log("admin getAllUser controller error", error.message);
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+// ! delete appointment
+export const deleteAppointment = async (req, res) => {
+  try {
+    const { appointmentID } = req.body;
+
+    if (!appointmentID) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Appointment id not found" });
+    }
+    await appointmentModel.findByIdAndDelete(appointmentID);
+    res
+      .status(200)
+      .json({ success: true, message: "Appointment Delete Successfully" });
+  } catch (error) {
+    console.log("admin deleteAppointment controller error", error.message);
+    res.status(400).json({ success: false, message: error.message });
+  }
+};

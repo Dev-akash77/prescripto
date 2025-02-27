@@ -82,3 +82,33 @@ export const getallUser = async (aToken) => {
     console.log("getallUser", error);
   }
 };
+
+// ! cancle appointment
+export const cancleAppointMent = async (appointmentID, aToken) => {
+  try {
+    const { data } = await api.post(
+      "/api/admin/cancle-appointment",
+      { appointmentID },
+      { headers: { aToken } }
+    );
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log("cancleAppointMent", error);
+  }
+};
+
+// ! delete appointment
+export const deleteAppointment = async (appointmentID,aToken) => {
+  try {
+    const { data } = await api.post(
+      "/api/admin/delete-appointment",
+      { appointmentID },
+      { headers: { aToken } }
+    );
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log("deleteAppointment", error);
+  }
+};

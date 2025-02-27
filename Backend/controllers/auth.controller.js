@@ -1,6 +1,7 @@
 import validator from "validator";
 import bcrypt from "bcryptjs";
 import { userModel } from "./../models/user.model.js";
+import { appointmentModel } from "../models/appointment.model.js";
 
 // ! register controller logics
 export const register = async (req, res) => {
@@ -108,8 +109,14 @@ export const updateProfileData = async (req, res) => {
     }
     await userModel.findByIdAndUpdate(
       { _id: userID },
-      { name, email, dob:updatedDob, gender, address, phone }
+      { name, email, dob: updatedDob, gender, address, phone }
     );
+     await appointmentModel.updateMany(
+      { userId: userID }, // Find all documents with this userId
+      { $set: { userData: { name, email, dob: updatedDob, gender, address, phone } } },
+    );
+    
+    
     res
       .status(200)
       .json({ success: true, message: "profile update successfully" });

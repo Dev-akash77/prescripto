@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import {
   addDoctor,
   adminLogin,
+  cancleAppointMent,
+  deleteAppointment,
   getallAppointment,
   getAllDoctor,
   getallUser,
@@ -11,7 +13,7 @@ import {
 import { toast } from "react-toastify";
 
 export const StoreContext = createContext();
-export const StoreContextProvider = ({children} ) => {
+export const StoreContextProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(true);
   const [adminToken, setAdminToken] = useState(
     JSON.parse(localStorage.getItem("adminToken")) || false
@@ -48,20 +50,23 @@ export const StoreContextProvider = ({children} ) => {
     enabled: !!adminToken,
   });
 
+  // ! get all user
+  const { data: allUserData } = useQuery({
+    queryKey: ["allUser"],
+    queryFn: () => getallUser(adminToken),
+    enabled: !!adminToken,
+  });
 
-// ! get all appointment
- const {data:allUserData} = useQuery({
-  queryKey:["allUser"],
-  queryFn:()=>getallUser(adminToken),
-  enabled:!!adminToken
- })
-
-// ! get all appointment
- const {data:allAppointmentData,refetch:allAppointmentRefetch,isLoading:appointmentLoading} = useQuery({
-  queryKey:["allAppointment"],
-  queryFn:()=>getallAppointment(adminToken),
-  enabled:!!adminToken
- })
+  // ! get all appointment
+  const {
+    data: allAppointmentData,
+    refetch: allAppointmentRefetch,
+    isLoading: appointmentLoading,
+  } = useQuery({
+    queryKey: ["allAppointment"],
+    queryFn: () => getallAppointment(adminToken),
+    enabled: !!adminToken,
+  });
 
   // ! authentication
   const handleAuthentication = async (e) => {
@@ -121,6 +126,36 @@ export const StoreContextProvider = ({children} ) => {
     }
   };
 
+  // ! cancle appointment
+  const handleCancleAppointment = async (id) => {
+    try {
+      const data = await cancleAppointMent(id, adminToken);
+
+      if (data.success) {
+        toast.success(data.message);
+        allAppointmentRefetch();
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong while canceling");
+    }
+  };
+
+  // ! delete appointment
+  const handleDeleteAppointment = async (id) => {
+    try {
+      const data = await deleteAppointment(id, adminToken);
+
+      if (data.success) {
+        toast.success(data.message);
+        allAppointmentRefetch();
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong while canceling");
+    }
+  };
+
   useEffect(() => {
     localStorage.setItem("adminToken", JSON.stringify(adminToken));
   }, [adminToken]);
@@ -132,7 +167,7 @@ export const StoreContextProvider = ({children} ) => {
       setFormData({ email: "", password: "" });
     }
   }, [loginData]);
-  
+
   return (
     <StoreContext.Provider
       value={{
@@ -151,7 +186,9 @@ export const StoreContextProvider = ({children} ) => {
         changeDoctorAvailable,
         allAppointmentData,
         allUserData,
-        appointmentLoading
+        appointmentLoading,
+        handleCancleAppointment,
+        handleDeleteAppointment,
       }}
     >
       {children}

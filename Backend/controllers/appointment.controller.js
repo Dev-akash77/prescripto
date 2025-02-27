@@ -111,7 +111,7 @@ export const cancelAppointment = async (req, res) => {
 
     const doctortData = await doctorModel.findById(doctorId);
     let slots_booked = doctortData.slots_booked;
-    slots_booked[slotDate] = slots_booked[slotDate].filter(
+    slots_booked[slotDate] = slots_booked[slotDate]?.filter(
       (cur) => cur !== slotTime
     );
     if (doctortData.slots_booked[slotDate].length === 0) {
@@ -121,7 +121,7 @@ export const cancelAppointment = async (req, res) => {
     await doctorModel.findByIdAndUpdate(doctorId, { slots_booked });
     res
       .status(200)
-      .json({ success: true, message: "Cancle Appointment", doctortData });
+      .json({ success: true, message: "Cancle Appointment" });
   } catch (error) {
     console.log("cancelAppointment controller error");
     res.status(400).json({ success: false, message: error.message });
