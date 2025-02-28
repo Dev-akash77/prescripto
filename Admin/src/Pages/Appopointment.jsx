@@ -20,13 +20,14 @@ const Appopointment = () => {
   }
   return (
     <div className="section_margin sidebar_margin">
-      <div className="flex flex-col px-4  w-[95%] bg-white ">
+      <div className="flex flex-col px-4  bg-white ">
         {/* Header Row */}
-        <div className="-mx-4 -mt-3 grid grid-cols-7 gap-5 px-4 py-3 bg-gray-100">
+        <div className="-mx-4 -mt-3 grid grid-cols-8 gap-5 px-4 py-3 bg-gray-100">
           <p>#</p>
           <p>Patient</p>
           <p>Age</p>
-          <p>Date & Time</p>
+          <p>Date </p>
+          <p>Time </p>
           <p>Doctor</p>
           <p>Fees</p>
           <p>Action</p>
@@ -48,14 +49,15 @@ const Appopointment = () => {
           }
           return (
             <div
-              className="-mx-4 grid grid-cols-7 gap-5 text-[#464646dd] border-b border-[#dddd] px-4 py-3 hover:bg-[#fefefe] cursor-pointer duration-300"
+              className="-mx-4  grid grid-cols-8 gap-5 text-[#464646dd] border-b border-[#dddd] px-4 py-3 hover:bg-[#fefefe] cursor-pointer duration-300"
               key={cur._id}
             >
               <p>{id + 1}</p>
               <p className="capitalize">{cur.userData.name}</p>
               <p>{calculateAge(cur.userData.dob)}</p>
-              <p>{cur.userData.dob}</p>
-              <p>{cur.doctorData.name}</p>
+              <p className="w-max capitalize">{cur.slotDate} </p>
+              <p className="w-max capitalize">{cur.slotTime} </p>
+              <p className="w-max">{cur.doctorData.name}</p>
               <p>${cur.doctorData.fees}</p>
               <div className="w-[2rem] h-[2rem] bg-[#ff898939] flex items-center justify-center rounded-full cursor-pointer text-red-600">
                 {cur.cancle ? (

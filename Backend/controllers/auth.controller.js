@@ -111,12 +111,15 @@ export const updateProfileData = async (req, res) => {
       { _id: userID },
       { name, email, dob: updatedDob, gender, address, phone }
     );
-     await appointmentModel.updateMany(
+    await appointmentModel.updateMany(
       { userId: userID }, // Find all documents with this userId
-      { $set: { userData: { name, email, dob: updatedDob, gender, address, phone } } },
+      {
+        $set: {
+          userData: { name, email, dob: updatedDob, gender, address, phone },
+        },
+      }
     );
-    
-    
+
     res
       .status(200)
       .json({ success: true, message: "profile update successfully" });
