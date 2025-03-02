@@ -23,5 +23,5 @@ router.get(
 router.get("/api/user-doctor", doctorMiddleware, getUserforDoctor); //! get user for doctor
 router.post("/api/complete-doctor", doctorMiddleware, compleateAppointment); //! doctor complete
 router.post("/api/doctor/:id", doctorPagination);
-router.post("/api/doctor-login", doctorLogin);
+router.post("/api/doctor-login", doctorLogin); //! doctors Login
 export const doctorRouter = router;

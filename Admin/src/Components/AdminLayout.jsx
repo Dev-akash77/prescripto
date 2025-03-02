@@ -1,12 +1,19 @@
-import React, { useContext } from "react";
-import { Outlet } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import SideBar from "./SideBar";
 import Auth from "../Auth/Auth";
 import { StoreContext } from "../Context/Store";
 
-const Layout = () => {
-  const { adminToken } = useContext(StoreContext);
+const AdminLayout = () => {
+  const { adminToken, doctorToken } = useContext(StoreContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (doctorToken) {
+      navigate("/doctor");
+    }
+  }, [doctorToken]);
 
   if (!adminToken) {
     return <Auth />;
@@ -25,4 +32,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default AdminLayout;

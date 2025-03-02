@@ -5,9 +5,11 @@ import {
   adminLogin,
   cancleAppointMent,
   deleteAppointment,
+  doctorsLogin,
   getallAppointment,
   getAllDoctor,
   getallUser,
+  getDoctorAppoinments,
   updateDoctorAvailable,
 } from "../Api/Api";
 import { toast } from "react-toastify";
@@ -16,8 +18,12 @@ export const StoreContext = createContext();
 export const StoreContextProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(true);
   const [adminToken, setAdminToken] = useState(
-    JSON.parse(localStorage.getItem("adminToken")) || false
+    JSON.parse(localStorage.getItem("adminToken")) || false //! admin token
   );
+  const [doctorToken, setDoctorToken] = useState(
+    JSON.parse(localStorage.getItem("doctorToken") || false) //! doctor token
+  );
+
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [doctroFromData, setDoctroFromData] = useState({
     name: "",
@@ -33,9 +39,17 @@ export const StoreContextProvider = ({ children }) => {
   });
 
   // ! tanstack query
+  // ! admin Login
   const { data: loginData, refetch: loginRefetch } = useQuery({
     queryKey: ["login"],
     queryFn: () => adminLogin(formData),
+    enabled: false,
+  });
+
+  // ! doctors login
+  const { data: doctorLoginData, refetch: doctorLoginRefetch } = useQuery({
+    queryKey: ["doctorLogin"],
+    queryFn: () => doctorsLogin(formData),
     enabled: false,
   });
 
@@ -68,12 +82,26 @@ export const StoreContextProvider = ({ children }) => {
     enabled: !!adminToken,
   });
 
+  // ! get doctor appointment
+  const {
+    data: doctorAppointmentData,
+    refetch: doctorAppointmentRefetch,
+    isLoading: doctorappointmentLoading,
+  } = useQuery({
+    queryKey: ["doctorAppointment"],
+    queryFn: () => getDoctorAppoinments(doctorToken),
+    enabled: !!doctorToken,
+  });
+  
   // ! authentication
   const handleAuthentication = async (e) => {
     e.preventDefault();
     try {
       if (isAdmin) {
         loginRefetch();
+      }
+      if (!isAdmin) {
+        doctorLoginRefetch();
       }
     } catch (error) {
       toast.error(error.response.data.message);
@@ -158,16 +186,27 @@ export const StoreContextProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("adminToken", JSON.stringify(adminToken));
-  }, [adminToken]);
+    localStorage.setItem("doctorToken", JSON.stringify(doctorToken));
+  }, [adminToken, doctorToken]);
 
   useEffect(() => {
     if (loginData?.success) {
       toast.success(loginData?.message);
       setAdminToken(loginData?.token);
+      setDoctorToken(false);
       setFormData({ email: "", password: "" });
     }
   }, [loginData]);
 
+  useEffect(() => {
+    if (doctorLoginData?.success) {
+      toast.success(doctorLoginData.message);
+      setDoctorToken(doctorLoginData.token);
+      setAdminToken(false);
+      setFormData({ email: "", password: "" });
+    }
+  }, [doctorLoginData]);
+  
   return (
     <StoreContext.Provider
       value={{
@@ -177,7 +216,9 @@ export const StoreContextProvider = ({ children }) => {
         setFormData,
         handleAuthentication,
         adminToken,
+        doctorToken,
         setAdminToken,
+        setDoctorToken,
         handleAddDoctor,
         doctroFromData,
         setDoctroFromData,
@@ -189,6 +230,8 @@ export const StoreContextProvider = ({ children }) => {
         appointmentLoading,
         handleCancleAppointment,
         handleDeleteAppointment,
+        doctorLoginData,
+        doctorAppointmentData
       }}
     >
       {children}

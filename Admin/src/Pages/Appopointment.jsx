@@ -60,7 +60,7 @@ const Appopointment = () => {
               <p className="w-max">{cur.doctorData.name}</p>
               <p>${cur.doctorData.fees}</p>
               <div className="w-[2rem] h-[2rem] bg-[#ff898939] flex items-center justify-center rounded-full cursor-pointer text-red-600">
-                {cur.cancle ? (
+                {cur.cancle || cur.isCompleate ? (
                   <MdDelete
                     onClick={() => {
                       handleDeleteAppointment(cur._id);

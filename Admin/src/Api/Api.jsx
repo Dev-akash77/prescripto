@@ -99,7 +99,7 @@ export const cancleAppointMent = async (appointmentID, aToken) => {
 };
 
 // ! delete appointment
-export const deleteAppointment = async (appointmentID,aToken) => {
+export const deleteAppointment = async (appointmentID, aToken) => {
   try {
     const { data } = await api.post(
       "/api/admin/delete-appointment",
@@ -110,5 +110,30 @@ export const deleteAppointment = async (appointmentID,aToken) => {
   } catch (error) {
     toast.error(error.response.data.message);
     console.log("deleteAppointment", error);
+  }
+};
+
+// ! Doctor Login
+export const doctorsLogin = async (fromdata) => {
+  try {
+    const { data } = await api.post(`/api/doctor-login`, fromdata);
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log("doctorsLogin error", error);
+  }
+};
+
+
+// ! get doctors appoinment data
+export const getDoctorAppoinments = async (token) => {
+  try {
+    const { data } = await api.get("/api/apoointment-doctor", {
+      headers: { token },
+    });
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log("getallAppointment", error);
   }
 };

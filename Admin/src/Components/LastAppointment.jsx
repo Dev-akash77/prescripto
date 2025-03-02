@@ -11,7 +11,9 @@ const LastAppointment = ({ data }) => {
         <p className="text-xl">Latest Appointment</p>
       </div>
       <hr className="text-[#c7c7c7dd]" />
-      {data.length === 0 && <p className="cc mt-10">No Appointment Available</p>}
+      {data.length === 0 && (
+        <p className="cc mt-10">No Appointment Available</p>
+      )}
       <div className="p-4 flex flex-col gap-5">
         {data
           .slice(0, 5)
@@ -33,8 +35,11 @@ const LastAppointment = ({ data }) => {
                     </p>
                   </div>
                 </div>
+
                 {cur.cancle ? (
                   <div className="text-red-500">Cancled</div>
+                ) : cur.isCompleate ? (
+                  <div className="text-green">Completed</div>
                 ) : (
                   <div className="w-[2.5rem] h-[2.5rem] bg-[#ffc9c94a] cc rounded-full cursor-pointer">
                     <RxCross2
