@@ -2,7 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import { StoreContext } from "../Context/Store";
 import LastAppointment from "../Components/LastAppointment";
-import Loader from './../UI/Loader';
+import Loader from "./../UI/Loader";
 
 const DashBoard = () => {
   const {
@@ -13,11 +13,12 @@ const DashBoard = () => {
   } = useContext(StoreContext);
 
   if (appointmentLoading) {
-    return <div className="h-screen w-screen cc">
-      <Loader />
-    </div>
+    return (
+      <div className="h-screen w-screen cc">
+        <Loader />
+      </div>
+    );
   }
-
 
   return (
     <div className="section_margin sidebar_margin w-max">

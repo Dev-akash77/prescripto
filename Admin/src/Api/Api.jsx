@@ -97,6 +97,20 @@ export const cancleAppointMent = async (appointmentID, aToken) => {
     console.log("cancleAppointMent", error);
   }
 };
+// ! doctor cancle appointment
+export const doctorCancleAppointMent = async (token, appointmentID) => {
+  try {
+    const { data } = await api.post(
+      "/api/doctor-cancle-appointment",
+      { appointmentID },
+      { headers: { token } }
+    );
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log("doctorCancleAppointMent", error);
+  }
+};
 
 // ! delete appointment
 export const deleteAppointment = async (appointmentID, aToken) => {
@@ -124,7 +138,6 @@ export const doctorsLogin = async (fromdata) => {
   }
 };
 
-
 // ! get doctors appoinment data
 export const getDoctorAppoinments = async (token) => {
   try {
@@ -134,6 +147,46 @@ export const getDoctorAppoinments = async (token) => {
     return data;
   } catch (error) {
     toast.error(error.response.data.message);
-    console.log("getallAppointment", error);
+    console.log("getallAppointment error", error);
+  }
+};
+// ! get doctors erning data
+export const getDoctorEarning = async (token) => {
+  try {
+    const { data } = await api.get("/api/earning-doctor", {
+      headers: { token },
+    });
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log("getallAppointment error", error);
+  }
+};
+
+// ! get doctors patiant data
+export const getDoctorPaitaint = async (token) => {
+  try {
+    const { data } = await api.get("/api/user-doctor", {
+      headers: { token },
+    });
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log("getallAppointment error", error);
+  }
+};
+
+// ! approve appointment by doctor
+export const approveAppoinment = async (token, appointmentId) => {
+  try {
+    const { data } = await api.post(
+      "/api/complete-doctor",
+      { appointmentId },
+      { headers: { token } }
+    );
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log("approveAppoinment error", error);
   }
 };

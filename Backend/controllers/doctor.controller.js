@@ -118,7 +118,7 @@ export const doctorPagination = async (req, res) => {
 // ! doctor login
 export const doctorLogin = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body; 
     const doctorData = await doctorModel.findOne({ email });
     const isMatch = await bcrypt.compare(password, doctorData.password);
 
@@ -190,22 +190,24 @@ export const compleateAppointment = async (req, res) => {
     const { appointmentId } = req.body;
     const appointmentData = await appointmentModel.findById(appointmentId);
 
-    await appointmentModel.findByIdAndUpdate(appointmentId, {isCompleate: true, });
+    await appointmentModel.findByIdAndUpdate(appointmentId, {
+      isCompleate: true,
+    });
 
-    const { doctorData, slotTime, slotDate,doctorId } = appointmentData;
-   const slots_booked = doctorData.slots_booked;
-   slots_booked[slotDate] = slots_booked[slotDate].filter((cur)=>cur !== slotTime);
+    const { doctorData, slotTime, slotDate, doctorId } = appointmentData;
+    const slots_booked = doctorData.slots_booked;
+    slots_booked[slotDate] = slots_booked[slotDate].filter(
+      (cur) => cur !== slotTime
+    );
 
-   if (slots_booked[slotDate].length ===0) {
-    delete slots_booked[slotDate]
-   }
-  await doctorModel.findByIdAndUpdate(doctorId,{slots_booked})
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Appointment Completed",
-      });
+    if (slots_booked[slotDate].length === 0) {
+      delete slots_booked[slotDate];
+    }
+    await doctorModel.findByIdAndUpdate(doctorId, { slots_booked });
+    res.status(200).json({
+      success: true,
+      message: "Appointment Completed",
+    });
   } catch (error) {
     console.log("compleateAppointment controller erorr", error);
     res.status(400).json({ success: false, message: error.message });

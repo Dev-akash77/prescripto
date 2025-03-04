@@ -10,6 +10,8 @@ import {
   getAllDoctor,
   getallUser,
   getDoctorAppoinments,
+  getDoctorEarning,
+  getDoctorPaitaint,
   updateDoctorAvailable,
 } from "../Api/Api";
 import { toast } from "react-toastify";
@@ -92,7 +94,21 @@ export const StoreContextProvider = ({ children }) => {
     queryFn: () => getDoctorAppoinments(doctorToken),
     enabled: !!doctorToken,
   });
-  
+
+  // ! get doctor earning
+  const { data: doctorEarningData, refetch: doctorEarningRefetch } = useQuery({
+    queryKey: ["doctorEarning"],
+    queryFn: () => getDoctorEarning(doctorToken),
+    enabled: !!doctorToken,
+  });
+
+  // ! get doctor paitaint
+  const { data: doctorPaitaintData, refetch: doctorPaitaint } = useQuery({
+    queryKey: ["doctorPaitaint"],
+    queryFn: () => getDoctorPaitaint(doctorToken),
+    enabled: !!doctorToken,
+  });
+
   // ! authentication
   const handleAuthentication = async (e) => {
     e.preventDefault();
@@ -206,7 +222,7 @@ export const StoreContextProvider = ({ children }) => {
       setFormData({ email: "", password: "" });
     }
   }, [doctorLoginData]);
-  
+
   return (
     <StoreContext.Provider
       value={{
@@ -231,7 +247,13 @@ export const StoreContextProvider = ({ children }) => {
         handleCancleAppointment,
         handleDeleteAppointment,
         doctorLoginData,
-        doctorAppointmentData
+        doctorAppointmentData,
+        allAppointmentRefetch,
+        doctorAppointmentRefetch,
+        doctorappointmentLoading,
+        doctorEarningData,
+        doctorEarningRefetch,
+        doctorPaitaintData
       }}
     >
       {children}
