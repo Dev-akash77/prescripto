@@ -56,9 +56,6 @@ body {
 .auth_main {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
-form input:focus{
-  border: .1rem solid var(--text);
-}
 .sidebar_margin{
   margin-left: 19.5rem;
 }

@@ -29,7 +29,9 @@ const DoctorDashboard = () => {
             <GiMoneyStack />
           </div>
           <div>
-            <p className="font-semibold text-[1.5rem]">${doctorEarningData?.totalEarning}</p>
+            <p className="font-semibold text-[1.5rem]">
+              ${doctorEarningData?.totalEarning}
+            </p>
             <p className=" text-[#5f5f5fdd]">Earning</p>
           </div>
         </div>
@@ -39,7 +41,9 @@ const DoctorDashboard = () => {
             <CiBookmarkCheck />
           </div>
           <div>
-            <p className="font-semibold text-[1.5rem]">{doctorAppointmentData?.appointment.length}</p>
+            <p className="font-semibold text-[1.5rem]">
+              {doctorAppointmentData?.availableAppointments.length}
+            </p>
             <p className=" text-[#5f5f5fdd]">Appointment</p>
           </div>
         </div>
@@ -49,7 +53,9 @@ const DoctorDashboard = () => {
             <FaUserTie />
           </div>
           <div>
-            <p className="font-semibold text-[1.5rem]">{doctorPaitaintData?.name.length}</p>
+            <p className="font-semibold text-[1.5rem]">
+              {doctorPaitaintData?.name.length}
+            </p>
             <p className=" text-[#5f5f5fdd]">Paitents</p>
           </div>
         </div>

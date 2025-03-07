@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { toast } from "react-toastify";
-import { api } from "./../Api/Api";
+import { api, razorpayApi } from "./../Api/Api";
 import { StoreContext } from "./../Context/Store";
 const AppointMentCard = ({ data }) => {
   const { token, allAppointmentRefetch, allDoctorsRefetch } =
@@ -22,6 +22,36 @@ const AppointMentCard = ({ data }) => {
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
+    }
+  };
+
+  // ! payment
+  const initpay = (data) => {
+    const options = {
+      key: import.meta.env.VITE_RAZOR_PAY_ID,
+      amount: data.order.amount,
+      currency: data.order.currency,
+      name: "Doctor Booking System",
+      description: "Appointment Payment",
+      order_id: data.order.id,
+      handler: async function (response) {
+        console.log("Payment Success Response", response);
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
+
+  const handlePayment = async (id) => {
+    try {
+      const data = await razorpayApi(id, token);
+
+      if (data?.success) {
+        initpay(data);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -48,7 +78,12 @@ const AppointMentCard = ({ data }) => {
 
       {!data.cancle ? (
         <div className="h-full flex flex-col justify-end items-center gap-3">
-          <div className="border border-[#dfdfdfdd] w-[12rem] h-[2.5rem] cc rounded-sm text-gray cursor-pointer hover:bg-blue hover:border-none hover:text-white duration-300">
+          <div
+            className="border border-[#dfdfdfdd] w-[12rem] h-[2.5rem] cc rounded-sm text-gray cursor-pointer hover:bg-blue hover:border-none hover:text-white duration-300"
+            onClick={() => {
+              handlePayment(data._id);
+            }}
+          >
             Pay Online
           </div>
           <div

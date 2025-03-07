@@ -1,8 +1,8 @@
 import { doctorModel } from "./../models/doctor.model.js";
 import bcrypt from "bcryptjs";
+import Razorpay from "razorpay";
 import { generateJWT } from "../Utils/Function/generateJWT_Token.js";
 import { appointmentModel } from "./../models/appointment.model.js";
-
 // ! add doctor functionality
 export const addDoctor = async (req, res) => {
   try {
@@ -118,7 +118,7 @@ export const doctorPagination = async (req, res) => {
 // ! doctor login
 export const doctorLogin = async (req, res) => {
   try {
-    const { email, password } = req.body; 
+    const { email, password } = req.body;
     const doctorData = await doctorModel.findOne({ email });
     const isMatch = await bcrypt.compare(password, doctorData.password);
 
@@ -162,8 +162,11 @@ export const getAppointmentForDoctor = async (req, res) => {
   try {
     const doctorId = req.doctor._id;
     const appointment = await appointmentModel.find({ doctorId });
+    const availableAppointments = appointment.filter(
+      (cur) => !cur.cancle && !cur.isCompleate
+    );
 
-    res.status(200).json({ success: true, appointment });
+    res.status(200).json({ success: true, appointment, availableAppointments });
   } catch (error) {
     console.log("getAmountForDoctor controller erorr", error);
     res.status(400).json({ success: false, message: error.message });
@@ -210,6 +213,96 @@ export const compleateAppointment = async (req, res) => {
     });
   } catch (error) {
     console.log("compleateAppointment controller erorr", error);
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+// ! get doctor profile data
+export const getDoctorProfile = async (req, res) => {
+  try {
+    const doctorProfile = req.doctor;
+    res.status(200).json({ success: true, doctorProfile });
+  } catch (error) {
+    console.log("getDoctorProfile controller erorr", error);
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+// ! update profile doctor
+export const updateDoctorProfile = async (req, res) => {
+  try {
+    const {
+      name,
+      speciality,
+      image,
+      degree,
+      experience,
+      about,
+      address,
+      fees,
+      available,
+    } = req.body;
+
+    const doctorId = req.doctor._id;
+
+    if (!doctorId) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Not Authorized Login Again" });
+    }
+
+    await doctorModel.findByIdAndUpdate(doctorId, {
+      name,
+      speciality,
+      image,
+      degree,
+      experience,
+      about,
+      address,
+      fees,
+      available,
+    });
+
+    res
+      .status(200)
+      .json({ success: true, message: "Profile Updated Successfully" });
+  } catch (error) {
+    console.log("updateDoctorProfile controller erorr", error);
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+// ! add payment
+
+const razorPayInstance = new Razorpay({
+  key_id: process.env.RAZOR_PAY_ID,
+  key_secret: process.env.RAZOR_PAY_SECRET,
+});
+
+export const PaymentRazorPay = async (req, res) => {
+  try {
+    const { appointmentId } = req.body;
+    const appointmentData = await appointmentModel.findById(appointmentId);
+
+    if (!appointmentData || appointmentData.cancle) {
+      return res.status(400).json({
+        success: false,
+        message: "Appointment Cancelled or Not Found",
+      });
+    }
+
+    const options = {
+      amount: appointmentData.amount * 100,
+      currency: process.env.CURRENCY || "INR",
+      receipt: appointmentId.toString(),
+    };
+
+    const order = await razorPayInstance.orders.create(options);
+
+    res.status(200).json({ success: true, message: "Order Created Successfully", order });
+
+  } catch (error) {
+    console.log("PaymentRazorPay controller erorr", error);
     res.status(400).json({ success: false, message: error.message });
   }
 };

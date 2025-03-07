@@ -2,11 +2,11 @@ import React, { useContext } from "react";
 import { TbArrowsLeftRight } from "react-icons/tb";
 import { RxCross2 } from "react-icons/rx";
 import { IoCheckmark } from "react-icons/io5";
-import { approveAppoinment, doctorCancleAppointMent } from "../Api/Api";
+import { approveAppoinment } from "../Api/Api";
 import { toast } from "react-toastify";
 import { StoreContext } from "../Context/Store";
 const DoctorsLastAppoinment = ({ data }) => {
-  const { doctorToken, doctorAppointmentRefetch } = useContext(StoreContext);
+  const { doctorToken, doctorAppointmentRefetch,handleDcoctorCancleAppointment } = useContext(StoreContext);
 
   //! get first letter for user name
   const getNameFirstLetter = (name) => {
@@ -17,19 +17,6 @@ const DoctorsLastAppoinment = ({ data }) => {
   const handleApproveAppointment = async (id) => {
     try {
       const cancleData = await approveAppoinment(doctorToken, id);
-      if (cancleData?.success) {
-        toast.success(cancleData.message);
-        doctorAppointmentRefetch();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // ! approve appointment
-  const handleDcoctorCancleAppointment = async (id) => {
-    try {
-      const cancleData = await doctorCancleAppointMent(doctorToken, id);
       if (cancleData?.success) {
         toast.success(cancleData.message);
         doctorAppointmentRefetch();

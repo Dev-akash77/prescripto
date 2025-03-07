@@ -18,11 +18,11 @@ const DoctorLayout = () => {
     return <Auth />;
   }
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col h-screen">
       <Navbar />
       <div className="flex gap-4 flex-1 p-4">
         <DoctorSideBar />
-        <div className="flex-1">
+        <div className="flex-1 h-screen">
           <Outlet />
         </div>
       </div>

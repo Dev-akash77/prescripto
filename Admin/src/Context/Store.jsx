@@ -5,6 +5,7 @@ import {
   adminLogin,
   cancleAppointMent,
   deleteAppointment,
+  doctorCancleAppointMent,
   doctorsLogin,
   getallAppointment,
   getAllDoctor,
@@ -12,6 +13,7 @@ import {
   getDoctorAppoinments,
   getDoctorEarning,
   getDoctorPaitaint,
+  getDoctorProfile,
   updateDoctorAvailable,
 } from "../Api/Api";
 import { toast } from "react-toastify";
@@ -108,6 +110,12 @@ export const StoreContextProvider = ({ children }) => {
     queryFn: () => getDoctorPaitaint(doctorToken),
     enabled: !!doctorToken,
   });
+  // ! get doctor Profile
+  const { data: doctorProfileData, refetch: doctorProfileRefetch,isLoading:doctorProfileLoading } = useQuery({
+    queryKey: ["doctorProfile"],
+    queryFn: () => getDoctorProfile(doctorToken),
+    enabled: !!doctorToken,
+  });
 
   // ! authentication
   const handleAuthentication = async (e) => {
@@ -199,6 +207,25 @@ export const StoreContextProvider = ({ children }) => {
       toast.error("Something went wrong while canceling");
     }
   };
+  
+
+// ! doctor appointment cancle
+  const handleDcoctorCancleAppointment = async (id) => {
+    try {
+      const cancleData = await doctorCancleAppointMent(doctorToken, id);
+      if (cancleData?.success) {
+        toast.success(cancleData.message);
+        doctorAppointmentRefetch();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
+
+
 
   useEffect(() => {
     localStorage.setItem("adminToken", JSON.stringify(adminToken));
@@ -253,7 +280,11 @@ export const StoreContextProvider = ({ children }) => {
         doctorappointmentLoading,
         doctorEarningData,
         doctorEarningRefetch,
-        doctorPaitaintData
+        doctorPaitaintData,
+        handleDcoctorCancleAppointment,
+        doctorProfileData,
+        doctorProfileLoading,
+        doctorProfileRefetch
       }}
     >
       {children}

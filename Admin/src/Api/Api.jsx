@@ -150,6 +150,18 @@ export const getDoctorAppoinments = async (token) => {
     console.log("getallAppointment error", error);
   }
 };
+// ! get doctors appoinment data
+export const getDoctorProfile = async (token) => {
+  try {
+    const { data } = await api.get("/api/doctor-profile", {
+      headers: { token },
+    });
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log("getallAppointment error", error);
+  }
+};
 // ! get doctors erning data
 export const getDoctorEarning = async (token) => {
   try {
@@ -190,3 +202,19 @@ export const approveAppoinment = async (token, appointmentId) => {
     console.log("approveAppoinment error", error);
   }
 };
+
+// ! update doctor Profile by doctor
+export const doctorProfileUpdate = async (token, fromData) => {
+  try {
+    const { data } = await api.put("/api/doctor-update-profile", fromData, {
+      headers: { token },
+    });
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log("approveAppoinment error", error);
+  }
+};
+
+
+// ! add razorpay payemtnt api

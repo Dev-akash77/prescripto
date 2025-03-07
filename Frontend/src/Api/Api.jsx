@@ -101,3 +101,17 @@ export const getAllAppointment = async (token) => {
     console.log("getAllAppointment error", error);
   }
 };
+
+
+// ! add razorpay payemtnt api
+export const razorpayApi = async (appointmentId, token) => {
+  try {
+    const { data } = await api.post("/api/user/payment", {appointmentId}, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log("razorpayApi error", error);
+  }
+};

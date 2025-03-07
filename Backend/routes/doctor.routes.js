@@ -7,7 +7,9 @@ import {
   getDoctorEarning,
   getAppointmentForDoctor,
   getUserforDoctor,
-  compleateAppointment
+  compleateAppointment,
+  getDoctorProfile,
+  updateDoctorProfile
 } from "../controllers/doctor.controller.js";
 import { adminMiddleware } from "../middleware/admin.middleware.js";
 import { doctorMiddleware } from "../middleware/doctor.middleware.js";
@@ -22,8 +24,10 @@ router.get(
   getAppointmentForDoctor
 ); //! get appointment for doctor
 router.get("/api/user-doctor", doctorMiddleware, getUserforDoctor); //! get user for doctor
+router.get("/api/doctor-profile", doctorMiddleware, getDoctorProfile); //! get doctor profile data
 router.post("/api/complete-doctor", doctorMiddleware, compleateAppointment); //! doctor complete
 router.post("/api/doctor/:id", doctorPagination);
 router.post("/api/doctor-login", doctorLogin); //! doctors Login
 router.post("/api/doctor-cancle-appointment",doctorMiddleware,cancleAdminAppointment);  //! doctor cancle appointment
+router.put("/api/doctor-update-profile",doctorMiddleware,updateDoctorProfile);  //! doctor update profile
 export const doctorRouter = router;
