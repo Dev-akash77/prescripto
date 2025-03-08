@@ -299,10 +299,37 @@ export const PaymentRazorPay = async (req, res) => {
 
     const order = await razorPayInstance.orders.create(options);
 
-    res.status(200).json({ success: true, message: "Order Created Successfully", order });
-
+    res
+      .status(200)
+      .json({ success: true, message: "Order Created Successfully", order });
   } catch (error) {
     console.log("PaymentRazorPay controller erorr", error);
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+export const verifyRazorPay = async (req, res) => {
+  try {
+    const { razorpay_order_id } = req.body;
+    const orderinfo = await razorPayInstance.orders.fetch(razorpay_order_id);
+
+    if (!orderinfo) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Order not verify" });
+    }
+    
+    if (orderinfo.status == "paid") {
+      await appointmentModel.findByIdAndUpdate(orderinfo.receipt, {
+        payment: true,
+      });
+      res.status(200).json({ success: true, message: "Payment Successful" });
+    } else {
+      res.status(200).json({ success: false, message: "Payment Failed" });
+    }
+
+  } catch (error) {
+    console.log("verifyRazorPay controller erorr", error);
     res.status(400).json({ success: false, message: error.message });
   }
 };

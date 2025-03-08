@@ -28,27 +28,27 @@ const Auth = () => {
 
   return (
     <div className="h-screen w-screen cc">
-      <div className="md:w-[24rem] w-[22rem] border rounded-xl section_gap auth_main px-[2rem] py-[2rem]">
-        <h2 className="text-highlightText text-2xl font-medium">
+      <div className="md:w-[24rem] w-full md:border rounded-xl section_gap md:auth_main px-[1.5rem] md:px-[2rem] md:py-[2rem]">
+        <h2 className="text-highlightText md:text-2xl text-4xl font-medium">
           {isLogin
             ? `Login`
             : `Create Account`}
         </h2>
-        <p className="mt-3 text-sm">
+        <p className="mt-3 md:text-sm text-lg">
           {isLogin
             ? `Please log in to book appointment`
             : `Please sign up to book appointment`}
         </p>
         {/* ! here is all form data */}
         <form
-          className="flex flex-col text-sm gap-[.5rem] mt-3"
+          className="flex flex-col text-sm md:gap-[.5rem] gap-[1.5rem] md:mt-3 mt-[5rem]"
           onSubmit={(e) => {
             handleAuthentication(e);
           }}
         >
           {!isLogin && (
-            <div className="flex flex-col gap-2">
-              <label htmlFor="name" className="capitalize">
+            <div className="flex flex-col md:gap-2">
+              <label htmlFor="name" className="capitalize md:text-base text-[1.4rem]">
                 Full Name
               </label>
               <input
@@ -59,12 +59,12 @@ const Auth = () => {
                   handleInputChange(e);
                 }}
                 required
-                className="border w-full p-2 outline-none rounded-md"
+                className="md:border border-b w-full p-2 outline-none md:rounded-md"
               />
             </div>
           )}
-          <div className="flex flex-col gap-2">
-            <label htmlFor="email" className="capitalize">
+          <div className="flex flex-col md:gap-2">
+            <label htmlFor="email" className="capitalize md:text-base text-[1.4rem]">
               Email
             </label>
             <input
@@ -75,11 +75,11 @@ const Auth = () => {
                 handleInputChange(e);
               }}
               required
-              className="border w-full p-2 outline-none rounded-md"
+              className="md:border border-b w-full p-2 outline-none md:rounded-md"
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="password" className="capitalize">
+            <label htmlFor="password" className="capitalize md:text-base text-[1.4rem]">
               Password
             </label>
             <input
@@ -90,19 +90,19 @@ const Auth = () => {
                 handleInputChange(e);
               }}
               required
-              className="border w-full p-2 outline-none rounded-md"
+              className="md:border border-b w-full p-2 outline-none md:rounded-md"
             />
           </div>
           <button
             type="submit"
-            className="cc mt-[.5rem] bg-blue text-white p-3 rounded-md"
+            className="cc md:mt-[.5rem] bg-blue text-white p-3 rounded-md md:py-0 py-3 md:text-base text-xl"
           >
             {isLogin ? `Login` : `Create Account`}
           </button>
         </form>
         {/* ! here is all form data */}
         {!isLogin ? (
-          <p className="mt-4 text-sm">
+          <p className="mt-4 md:text-sm text-lg">
             Already have an account?{" "}
             <span
               onClick={handleisLogin}
@@ -110,7 +110,7 @@ const Auth = () => {
             >{`Login here`}</span>
           </p>
         ) : (
-          <p className="mt-4 text-sm">
+          <p className="mt-4 md:text-sm text-lg">
             Create an new account?{" "}
             <span
               onClick={handleisLogin}

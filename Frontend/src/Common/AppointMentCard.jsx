@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { toast } from "react-toastify";
-import { api, razorpayApi } from "./../Api/Api";
+import { api, razorpayApi, razorpayVerify } from "./../Api/Api";
 import { StoreContext } from "./../Context/Store";
 const AppointMentCard = ({ data }) => {
   const { token, allAppointmentRefetch, allDoctorsRefetch } =
@@ -36,6 +36,14 @@ const AppointMentCard = ({ data }) => {
       order_id: data.order.id,
       handler: async function (response) {
         console.log("Payment Success Response", response);
+        const verifyData = await razorpayVerify(
+          response?.razorpay_order_id,
+          token
+        );
+        if (verifyData?.success) {
+          toast.success(verifyData.message);
+          allAppointmentRefetch();
+        }
       },
     };
 
@@ -76,7 +84,13 @@ const AppointMentCard = ({ data }) => {
         </div>
       </div>
 
-      {!data.cancle ? (
+      {data.payment ? (
+        <div className="h-full flex flex-col justify-end items-center gap-3">
+          <div className="border border-[#dfdfdfdd] w-[12rem] h-[2.5rem] cc rounded-sm bg-blueTrans border-none">
+            Paid
+          </div>
+        </div>
+      ) : !data.cancle ? (
         <div className="h-full flex flex-col justify-end items-center gap-3">
           <div
             className="border border-[#dfdfdfdd] w-[12rem] h-[2.5rem] cc rounded-sm text-gray cursor-pointer hover:bg-blue hover:border-none hover:text-white duration-300"
@@ -92,13 +106,13 @@ const AppointMentCard = ({ data }) => {
               handleCancleAppointment(data._id);
             }}
           >
-            Cancel appointment
+            Cancel Appointment
           </div>
         </div>
       ) : (
         <div className="h-full flex flex-col justify-end items-center gap-3">
-          <div className="border border-[#dfdfdfdd] w-[12rem] h-[2.5rem] cc rounded-sm cursor-pointer border-[#f03535] text-[#f03535]">
-            Appointment cancelled
+          <div className="border border-[#dfdfdfdd] w-[12rem] h-[2.5rem] cc rounded-sm border-[#f03535] text-[#f03535]">
+            Appointment Cancelled
           </div>
         </div>
       )}

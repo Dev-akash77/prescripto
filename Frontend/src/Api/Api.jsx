@@ -115,3 +115,16 @@ export const razorpayApi = async (appointmentId, token) => {
     console.log("razorpayApi error", error);
   }
 };
+
+// !  razorpay payemtnt verify
+export const razorpayVerify = async (razorpay_order_id, token) => {
+  try {
+    const { data } = await api.post("/api/user/verify-payment", {razorpay_order_id}, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+    console.log("razorpayVerify error", error);
+  }
+};
