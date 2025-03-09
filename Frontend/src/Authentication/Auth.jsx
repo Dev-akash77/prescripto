@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { StoreContext } from "../Context/Store";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { MdKeyboardBackspace } from "react-icons/md";
 const Auth = () => {
   const {
     setIsLogin,
@@ -28,15 +28,33 @@ const Auth = () => {
 
   return (
     <div className="h-screen w-screen md:flex md:items-center md:justify-center">
-      <div className="md:w-[24rem] w-full md:border rounded-xl section_gap auth_main px-[1.5rem] md:px-[2rem] md:py-[2rem]">
-        <h2 className="text-highlightText md:text-2xl text-4xl font-medium">
-          {isLogin ? `Login` : `Create Account`}
+      <div className="md:hidden block bg-blue pt-5 rounded-b-[50%] pb-16 px-5 text-white">
+        <Link to={"/"}>
+          <MdKeyboardBackspace className="text-4xl mb-2" />
+        </Link>
+        <h2 className="cc md:text-2xl text-[2.5rem] font-semibold">
+          {isLogin ? `Login Account` : `Create Account`}
         </h2>
-        <p className="mt-3 md:text-sm text-lg">
+        <p className="cc mt-3 md:text-sm text-md">
           {isLogin
             ? `Please log in to book appointment`
             : `Please sign up to book appointment`}
         </p>
+      </div>
+      <div className="md:w-[24rem] w-full md:border border-[#dddd] rounded-xl auth_main px-[1.5rem] md:px-[2rem] md:py-[1.5rem]">
+        <div className="md:block hidden">
+          <Link to={"/"}>
+            <MdKeyboardBackspace className="text-4xl mb-2" />
+          </Link>
+          <h2 className="text-highlightText md:text-2xl text-2xl font-medium">
+            {isLogin ? `Login` : `Create Account`}
+          </h2>
+          <p className="mt-3 md:text-sm text-md">
+            {isLogin
+              ? `Please log in to book appointment`
+              : `Please sign up to book appointment`}
+          </p>
+        </div>
         {/* ! here is all form data */}
         <form
           className="flex flex-col text-sm md:gap-[.5rem] gap-[1.6rem] md:mt-3 mt-[3rem]"
@@ -45,10 +63,10 @@ const Auth = () => {
           }}
         >
           {!isLogin && (
-            <div className="flex flex-col md:gap-2 gap-3">
+            <div className="flex flex-col md:gap-2 gap-1">
               <label
                 htmlFor="name"
-                className="capitalize md:text-base text-[1.4rem]"
+                className="capitalize md:text-base text-[1.2rem]"
               >
                 Full Name
               </label>
@@ -60,14 +78,14 @@ const Auth = () => {
                   handleInputChange(e);
                 }}
                 required
-                className="md:border md:focus:border-2 border-b w-full p-2 outline-none md:rounded-md"
+                className="md:border md:focus:border-2 md:border-[#dddd] border-b w-full p-2 outline-none md:rounded-md"
               />
             </div>
           )}
-          <div className="flex flex-col md:gap-2 gap-3">
+          <div className="flex flex-col md:gap-2 gap-1">
             <label
               htmlFor="email"
-              className="capitalize md:text-base text-[1.4rem]"
+              className="capitalize md:text-base text-[1.2rem]"
             >
               Email
             </label>
@@ -79,13 +97,13 @@ const Auth = () => {
                 handleInputChange(e);
               }}
               required
-              className="md:border md:focus:border-2 border-b w-full p-2 outline-none md:rounded-md"
+              className="md:border md:focus:border-2 md:border-[#dddd] border-b w-full p-2 outline-none md:rounded-md"
             />
           </div>
-          <div className="flex flex-col md:gap-2 gap-3">
+          <div className="flex flex-col md:gap-2 gap-1">
             <label
               htmlFor="password"
-              className="capitalize md:text-base text-[1.4rem]"
+              className="capitalize md:text-base text-[1.2rem]"
             >
               Password
             </label>
@@ -97,7 +115,7 @@ const Auth = () => {
                 handleInputChange(e);
               }}
               required
-              className="md:border md:focus:border-2 border-b w-full p-2 outline-none md:rounded-md"
+              className="md:border md:focus:border-2 md:border-[#dddd] border-b w-full p-2 outline-none md:rounded-md"
             />
           </div>
           <button

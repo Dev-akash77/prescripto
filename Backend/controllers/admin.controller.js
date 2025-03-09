@@ -136,10 +136,10 @@ export const cancleAdminAppointment = async (req, res) => {
     const { appointmentID } = req.body;
     const appointmentData = await appointmentModel.findById(appointmentID);
 
-    if (!appointmentData) {
-      return res
+    if (!appointmentData) { 
+      return res 
         .status(400)
-        .json({ success: false, message: "Appointment not found" });
+        .json({ success: false, message: "Appointment not found" }); 
     }
     await appointmentModel.findByIdAndUpdate(appointmentID, { cancle: true });
 

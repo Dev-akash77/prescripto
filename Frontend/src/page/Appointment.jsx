@@ -1,11 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import AppointMentCard from "../Common/AppointMentCard";
 import { StoreContext } from "../Context/Store";
 import Loaders from "./../UI/Loaders";
+import { useNavigate } from "react-router-dom";
 
 const Appointment = () => {
-  const { allAppointmentData, allAppointmentLoading } =
+  const { allAppointmentData, allAppointmentLoading, token } =
     useContext(StoreContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token, navigate]);
 
   if (allAppointmentLoading) {
     return (
@@ -25,7 +33,9 @@ const Appointment = () => {
   return (
     <div className="section_margin cc">
       <div className="container">
-        <h2 className="md:text-lg text-2xl mt-5 mt:font-[500] font-lg mb-5">My appointments</h2>
+        <h2 className="md:text-lg text-2xl mt-5 mt:font-[500] font-lg mb-5">
+          My appointments
+        </h2>
         {/* <hr className="md:text-[#dfdfdfdd] text-black mt-4" /> */}
         <div className="flex flex-col">
           {[...(allAppointmentData?.appointment || [])]

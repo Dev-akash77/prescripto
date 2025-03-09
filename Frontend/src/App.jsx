@@ -9,12 +9,13 @@ import Details from "./page/Details";
 import ErrorPage from "./page/ErrorPage";
 import { StoreContextProvider } from "./Context/Store";
 import Auth from "./Authentication/Auth";
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
 import Profile from "./page/Profile";
 import Appointment from "./page/Appointment";
 import DoctorsLayout from "./page/All_Doctors";
-import Doctor_Speciality from './page/Doctor_Speciality';
+import Doctor_Speciality from "./page/Doctor_Speciality";
+import PrivateRoute from "./page/PrivateRoute";
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -32,16 +33,16 @@ const App = () => {
         {
           path: "/doctors",
           element: <Doctors />,
-          children:[
+          children: [
             {
-              index:true,
-              element:<DoctorsLayout/>
+              index: true,
+              element: <DoctorsLayout />,
             },
             {
-              path:"/doctors/:speciality",
-              element:<Doctor_Speciality/>
-            }
-          ]
+              path: "/doctors/:speciality",
+              element: <Doctor_Speciality />,
+            },
+          ],
         },
         {
           path: "/doctors/details/:id",
@@ -52,16 +53,20 @@ const App = () => {
           element: <Contact />,
         },
         {
-          path: "/login",
-          element: <Auth />,
-        },
-        {
           path: "/profile",
-          element: <Profile />,
+          element: (
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          ),
         },
         {
           path: "/appointments",
-          element: <Appointment />,
+          element: (
+            <PrivateRoute>
+              <Appointment />
+            </PrivateRoute>
+          ),
         },
         {
           path: "*",
@@ -69,14 +74,16 @@ const App = () => {
         },
       ],
     },
+    {
+      path: "/login",
+      element: <Auth />,
+    },
   ]);
-  const queryClient = new QueryClient()
+  const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
       <StoreContextProvider>
-        <RouterProvider router={router}>
-          
-        </RouterProvider>
+        <RouterProvider router={router}></RouterProvider>
         <ToastContainer />
       </StoreContextProvider>
     </QueryClientProvider>
