@@ -137,11 +137,11 @@ export const StoreContextProvider = ({ children }) => {
   }, [loginData]);
 
   // ! all catagory name
-  const getAllCategory= () => {
+  const getAllCategory = () => {
     return [...new Set(allDoctorsData?.doctors.map((cur) => cur.speciality))];
   };
   const allCategoryName = getAllCategory();
-   
+
   return (
     <StoreContext.Provider
       value={{
@@ -164,7 +164,7 @@ export const StoreContextProvider = ({ children }) => {
         allAppointmentData,
         allAppointmentLoading,
         allAppointmentRefetch,
-        allCategoryName
+        allCategoryName,
       }}
     >
       {children}

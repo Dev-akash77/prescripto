@@ -27,12 +27,10 @@ const Auth = () => {
   }, [token]);
 
   return (
-    <div className="h-screen w-screen cc">
-      <div className="md:w-[24rem] w-full md:border rounded-xl section_gap md:auth_main px-[1.5rem] md:px-[2rem] md:py-[2rem]">
+    <div className="h-screen w-screen md:flex md:items-center md:justify-center">
+      <div className="md:w-[24rem] w-full md:border rounded-xl section_gap auth_main px-[1.5rem] md:px-[2rem] md:py-[2rem]">
         <h2 className="text-highlightText md:text-2xl text-4xl font-medium">
-          {isLogin
-            ? `Login`
-            : `Create Account`}
+          {isLogin ? `Login` : `Create Account`}
         </h2>
         <p className="mt-3 md:text-sm text-lg">
           {isLogin
@@ -41,14 +39,17 @@ const Auth = () => {
         </p>
         {/* ! here is all form data */}
         <form
-          className="flex flex-col text-sm md:gap-[.5rem] gap-[1.5rem] md:mt-3 mt-[5rem]"
+          className="flex flex-col text-sm md:gap-[.5rem] gap-[1.6rem] md:mt-3 mt-[3rem]"
           onSubmit={(e) => {
             handleAuthentication(e);
           }}
         >
           {!isLogin && (
-            <div className="flex flex-col md:gap-2">
-              <label htmlFor="name" className="capitalize md:text-base text-[1.4rem]">
+            <div className="flex flex-col md:gap-2 gap-3">
+              <label
+                htmlFor="name"
+                className="capitalize md:text-base text-[1.4rem]"
+              >
                 Full Name
               </label>
               <input
@@ -59,12 +60,15 @@ const Auth = () => {
                   handleInputChange(e);
                 }}
                 required
-                className="md:border border-b w-full p-2 outline-none md:rounded-md"
+                className="md:border md:focus:border-2 border-b w-full p-2 outline-none md:rounded-md"
               />
             </div>
           )}
-          <div className="flex flex-col md:gap-2">
-            <label htmlFor="email" className="capitalize md:text-base text-[1.4rem]">
+          <div className="flex flex-col md:gap-2 gap-3">
+            <label
+              htmlFor="email"
+              className="capitalize md:text-base text-[1.4rem]"
+            >
               Email
             </label>
             <input
@@ -75,11 +79,14 @@ const Auth = () => {
                 handleInputChange(e);
               }}
               required
-              className="md:border border-b w-full p-2 outline-none md:rounded-md"
+              className="md:border md:focus:border-2 border-b w-full p-2 outline-none md:rounded-md"
             />
           </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="password" className="capitalize md:text-base text-[1.4rem]">
+          <div className="flex flex-col md:gap-2 gap-3">
+            <label
+              htmlFor="password"
+              className="capitalize md:text-base text-[1.4rem]"
+            >
               Password
             </label>
             <input
@@ -90,12 +97,12 @@ const Auth = () => {
                 handleInputChange(e);
               }}
               required
-              className="md:border border-b w-full p-2 outline-none md:rounded-md"
+              className="md:border md:focus:border-2 border-b w-full p-2 outline-none md:rounded-md"
             />
           </div>
           <button
             type="submit"
-            className="cc md:mt-[.5rem] bg-blue text-white p-3 rounded-md md:py-0 py-3 md:text-base text-xl"
+            className="cc md:mt-[.5rem] bg-blue text-white p-3 rounded-md md:py-2 py-3 md:text-base text-xl"
           >
             {isLogin ? `Login` : `Create Account`}
           </button>

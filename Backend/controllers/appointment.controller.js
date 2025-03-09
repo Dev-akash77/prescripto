@@ -114,7 +114,7 @@ export const cancelAppointment = async (req, res) => {
     slots_booked[slotDate] = slots_booked[slotDate]?.filter(
       (cur) => cur !== slotTime
     );
-    if (doctortData.slots_booked[slotDate].length === 0) {
+    if (doctortData.slots_booked[slotDate]?.length === 0) {
       delete doctortData.slots_booked[slotDate];
     }
 

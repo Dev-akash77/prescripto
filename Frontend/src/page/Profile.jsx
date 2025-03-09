@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../Context/Store";
 import { useNavigate } from "react-router-dom";
 import Loaders from "../UI/Loaders";
-import { getNameFirstLetter } from './../Utils/Function/getFirstLetter';
+import { getNameFirstLetter } from "./../Utils/Function/getFirstLetter";
 
 const Profile = () => {
   const {
@@ -62,7 +62,7 @@ const Profile = () => {
           <div className="w-1/2 h-[.03rem] bg-black my-3"></div>
           <p className="border-b-2 w-max text-xl">Contact Information</p>
           <div className="flex flex-col mt-5 gap-3 w-max">
-            <div className="flex items-center gap-[5rem]">
+            <div className="flex items-center md:gap-[5rem] gap-3">
               <p className="text-[1rem] font-semibold">Email id:</p>
               {!editProfile ? (
                 <p className="text-blue">{email}</p>
@@ -75,7 +75,7 @@ const Profile = () => {
                 />
               )}
             </div>
-            <div className="flex items-center gap-[5.7rem]">
+            <div className="flex items-center md:gap-[5.7rem] gap-6">
               <p className="text-[1rem] font-semibold">Phone:</p>
               <p className="text-blue">
                 {!editProfile ? (
@@ -90,9 +90,9 @@ const Profile = () => {
                 )}
               </p>
             </div>
-            <div className="flex items-center gap-[5rem]">
+            <div className="flex md:items-center md:gap-[5rem] gap-3">
               <p className="text-[1rem] font-semibold">Address:</p>
-              <p className="text-blue">
+              <p className="text-blue md:w-[auto] w-[60%]">
                 {!editProfile ? (
                   address
                 ) : (

@@ -24,6 +24,7 @@ const Header = () => {
           className="flex items-center justify-between md:w-[66%] main_nav_content md:translate-x-0 transform duration-200"
           style={isopen ? { transform: "translateX(20%)" } : {}}
         >
+       
           <ul className="flex gap-5 nav_content">
             {["/", "doctors", "about", "contact"].map((cur, id) => {
               return (
@@ -40,7 +41,15 @@ const Header = () => {
                 </li>
               );
             })}
-            <li><a href="https://prescripto-akash-admin.vercel.app/" target="_blank" className="uppercase navbar font-[500]">Admin</a></li>
+            <li>
+              <a
+                href="https://prescripto-akash-admin.vercel.app/"
+                target="_blank"
+                className="uppercase navbar font-[500]"
+              >
+                Admin
+              </a>
+            </li>
           </ul>
           {!token ? (
             <Link
@@ -57,7 +66,7 @@ const Header = () => {
           )}
         </div>
         <div className="md:hidden block z-20 w-max" onClick={handleToggleMenue}>
-          {!isopen ? (
+          {!isopen  ? (
             <FaBarsStaggered className="text-[1.5rem]" />
           ) : (
             <RxCross2 className="text-[1.5rem]" />

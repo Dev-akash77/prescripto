@@ -2,10 +2,11 @@ import React, { useContext } from "react";
 import { toast } from "react-toastify";
 import { api, razorpayApi, razorpayVerify } from "./../Api/Api";
 import { StoreContext } from "./../Context/Store";
+import { useNavigate } from "react-router-dom";
 const AppointMentCard = ({ data }) => {
   const { token, allAppointmentRefetch, allDoctorsRefetch } =
     useContext(StoreContext);
-
+  const navigate = useNavigate();
   const handleCancleAppointment = async (appointmentId) => {
     try {
       const { data } = await api.post(
@@ -64,13 +65,18 @@ const AppointMentCard = ({ data }) => {
   };
 
   return (
-    <div className="border-[#dfdfdfdd] border-b-[.04rem] py-4 flex items-center justify-between">
-      <div className="flex gap-7">
-        <div className="bg-blueTrans">
+    <div className="md:border-[#dfdfdfdd] border-black border-t-[.04rem] py-4 flex mt:items-center justify-between md:flex-row flex-col">
+      <div className="flex gap-7 md:flex-row flex-col ">
+        <div
+          className="bg-blueTrans cc cursor-pointer"
+          onClick={() => {
+            navigate(`/doctors/details/${data?.doctorData._id}`);
+          }}
+        >
           <img src={data?.doctorData.image} alt="" className="w-[9rem]" />
         </div>
 
-        <div className="flex flex-col gap-[.08rem]">
+        <div className="flex flex-col gap-[.08rem] md:mb-0 mb-5">
           <h2 className="font-semibold">{data?.doctorData.name}</h2>
           <p className=" text-gray">{data?.doctorData.speciality}</p>
           <p className="mt-[.17rem]">Address:</p>
@@ -85,15 +91,15 @@ const AppointMentCard = ({ data }) => {
       </div>
 
       {data.payment ? (
-        <div className="h-full flex flex-col justify-end items-center gap-3">
-          <div className="border border-[#dfdfdfdd] w-[12rem] h-[2.5rem] cc rounded-sm bg-blueTrans border-none">
+        <div className="h-full flex flex-col justify-end mt:items-center gap-3">
+          <div className="border border-[#dfdfdfdd] md:w-[12rem] h-[2.5rem] cc rounded-sm bg-blueTrans border-none">
             Paid
           </div>
         </div>
       ) : !data.cancle ? (
-        <div className="h-full flex flex-col justify-end items-center gap-3">
+        <div className="h-full flex flex-col justify-end md:items-center gap-3">
           <div
-            className="border border-[#dfdfdfdd] w-[12rem] h-[2.5rem] cc rounded-sm text-gray cursor-pointer hover:bg-blue hover:border-none hover:text-white duration-300"
+            className="border border-[#dfdfdfdd] md:w-[12rem] h-[2.5rem] cc rounded-sm text-gray cursor-pointer hover:bg-blue hover:border-none hover:text-white duration-300"
             onClick={() => {
               handlePayment(data._id);
             }}
@@ -101,7 +107,7 @@ const AppointMentCard = ({ data }) => {
             Pay Online
           </div>
           <div
-            className="border border-[#dfdfdfdd] w-[12rem] h-[2.5rem] cc rounded-sm text-gray cursor-pointer hover:bg-[#f03535] hover:border-none hover:text-white duration-300"
+            className="border border-[#dfdfdfdd] md:w-[12rem] h-[2.5rem] cc rounded-sm text-gray cursor-pointer hover:bg-[#f03535] hover:border-none hover:text-white duration-300"
             onClick={() => {
               handleCancleAppointment(data._id);
             }}
@@ -110,8 +116,8 @@ const AppointMentCard = ({ data }) => {
           </div>
         </div>
       ) : (
-        <div className="h-full flex flex-col justify-end items-center gap-3">
-          <div className="border border-[#dfdfdfdd] w-[12rem] h-[2.5rem] cc rounded-sm border-[#f03535] text-[#f03535]">
+        <div className="h-full flex flex-col justify-end md:items-center gap-3">
+          <div className="border border-[#dfdfdfdd] md:w-[12rem] h-[2.5rem] cc rounded-sm border-[#f03535] text-[#f03535]">
             Appointment Cancelled
           </div>
         </div>

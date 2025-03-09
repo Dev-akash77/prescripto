@@ -25,8 +25,8 @@ const Appointment = () => {
   return (
     <div className="section_margin cc">
       <div className="container">
-        <h2 className="text-lg mt-5 font-[500]">My appointments</h2>
-        <hr className="text-[#dfdfdfdd] mt-4" />
+        <h2 className="md:text-lg text-2xl mt-5 mt:font-[500] font-lg mb-5">My appointments</h2>
+        {/* <hr className="md:text-[#dfdfdfdd] text-black mt-4" /> */}
         <div className="flex flex-col">
           {[...(allAppointmentData?.appointment || [])]
             .reverse()

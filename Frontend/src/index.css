@@ -15,7 +15,7 @@
   --blueTrans: #eaefff;
   --green: #0fbf00;
   --blue: #5f6fff;
-  --gray:#444444dd;
+  --gray: #444444dd;
 }
 @font-face {
   font-family: "Outfit";
@@ -95,9 +95,8 @@ body {
 }
 
 .auth_main {
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: #959da533 0px 8px 24px;
 }
-
 
 @media (max-width: 1050px) {
   .container {
@@ -125,12 +124,26 @@ body {
     display: flex;
     flex-direction: column;
   }
+  .auth_main {
+    box-shadow: none;
+  }
+  .doctor_catagory {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    top: 0;
+    z-index: 99;
+    left: 0;
+    background-color: var(--white);
+    padding-top: 2rem;
+    font-size: 1.5rem;
+    transition: 0.3s ease;
+    transform: translate(-100%);
+  }
 }
 
-
-
 /* ! loader css */
-/* From Uiverse.io by Fernando-sv */ 
+/* From Uiverse.io by Fernando-sv */
 .loader {
   border: 4px solid #00000048;
   border-left-color: transparent;
@@ -140,15 +153,15 @@ body {
 .loader {
   border: 4px solid #00000047;
   border-left-color: transparent;
-  width:60px;
-  height:60px;
+  width: 60px;
+  height: 60px;
 }
 
 .loader {
   border: 4px solid #00000042;
   border-left-color: transparent;
-  width:60px;
-  height:60px;
+  width: 60px;
+  height: 60px;
   animation: spin89345 1s linear infinite;
 }
 
