@@ -70,7 +70,7 @@ const AppointMentCard = ({ data }) => {
         <div
           className="bg-blueTrans cc cursor-pointer"
           onClick={() => {
-            navigate(`/doctors/details/${data?.doctorData._id}`);
+            navigate(`/doctors/details/${data?.doctorId}`);
           }}
         >
           <img src={data?.doctorData.image} alt="" className="w-[9rem]" />

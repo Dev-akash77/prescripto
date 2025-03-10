@@ -38,10 +38,10 @@ const AddDoctor = () => {
     <div className="section_margin sidebar_margin">
       <h2 className="font-semibold text-lg">Add Doctor</h2>
       <form
-        className="fixed border border-[#dddd] h-[75vh] mt-5 px-7 flex flex-col py-7 bg-white gap-5 overflow-y-auto"
+        className="md:fixed border border-[#dddd] md:h-[75vh] h-auto mt-5 md:w-auto  w-[95%] flex flex-col md:p-7 p-4 bg-white gap-5 md:overflow-y-auto"
         onSubmit={handleAddDoctor}
       >
-        <div className="flex flex-col gap-1 rounded-sm">
+        <div className="flex flex-col gap-1 rounded-sm ">
           <p>Upload doctor picture</p>
           <input
             type="text"
@@ -51,12 +51,12 @@ const AddDoctor = () => {
               handleDoctorFrom(e);
             }}
             required
-            className="border border-[#dddd] rounded-sm bg-transparent p-2 w-[26rem]"
+            className="border border-[#dddd] rounded-sm bg-transparent p-2 md:w-[26rem]"
             placeholder="Image url"
           />
         </div>
 
-        <div className="flex gap-[2.5rem] items-center justify-center">
+        <div className="flex md:gap-[2.5rem] gap-5 md:flex-row flex-col md:items-center justify-start">
           <div className="flex flex-col gap-1  rounded-sm">
             <p>Doctor's name</p>
             <input
@@ -67,7 +67,7 @@ const AddDoctor = () => {
                 handleDoctorFrom(e);
               }}
               required
-              className="border border-[#dddd] rounded-sm bg-transparent p-2 w-[26rem]"
+              className="border border-[#dddd] rounded-sm bg-transparent p-2 md:w-[26rem]"
               placeholder="Name"
             />
           </div>
@@ -80,7 +80,7 @@ const AddDoctor = () => {
                 handleDoctorFrom(e);
               }}
               required
-              className="border border-[#dddd] rounded-sm bg-transparent p-2 w-[26rem]"
+              className="border border-[#dddd] rounded-sm bg-transparent p-2 md:w-[26rem]"
             >
               {doctorCategories.map((cur, id) => {
                 return (
@@ -93,7 +93,7 @@ const AddDoctor = () => {
           </div>
         </div>
 
-        <div className="flex gap-[2.5rem] items-center justify-center">
+        <div className="flex md:gap-[2.5rem] gap-5 md:flex-row flex-col md:items-center justify-start">
           <div className="flex flex-col gap-1 rounded-sm">
             <p>Doctor Email</p>
             <input
@@ -104,7 +104,7 @@ const AddDoctor = () => {
                 handleDoctorFrom(e);
               }}
               required
-              className="border border-[#dddd] rounded-sm bg-transparent p-2 w-[26rem]"
+              className="border border-[#dddd] rounded-sm bg-transparent p-2 md:w-[26rem]"
               placeholder="Email"
             />
           </div>
@@ -118,13 +118,13 @@ const AddDoctor = () => {
                 handleDoctorFrom(e);
               }}
               required
-              className="border border-[#dddd] rounded-sm bg-transparent p-2 w-[26rem]"
+              className="border border-[#dddd] rounded-sm bg-transparent p-2 md:w-[26rem]"
               placeholder="Degree"
             />
           </div>
         </div>
 
-        <div className="flex gap-[2.5rem] items-center justify-center">
+        <div className="flex md:gap-[2.5rem] gap-5 md:flex-row flex-col md:items-center justify-start">
           <div className="flex flex-col gap-1 rounded-sm">
             <p>Set Password</p>
             <input
@@ -135,7 +135,7 @@ const AddDoctor = () => {
                 handleDoctorFrom(e);
               }}
               required
-              className="border border-[#dddd] rounded-sm bg-transparent p-2 w-[26rem]"
+              className="border border-[#dddd] rounded-sm bg-transparent p-2 md:w-[26rem]"
               placeholder="Password"
             />
           </div>
@@ -149,13 +149,13 @@ const AddDoctor = () => {
                 handleDoctorFrom(e);
               }}
               required
-              className="border border-[#dddd] rounded-sm bg-transparent p-2 w-[26rem]"
+              className="border border-[#dddd] rounded-sm bg-transparent p-2 md:w-[26rem]"
               placeholder="Address"
             />
           </div>
         </div>
 
-        <div className="flex gap-[2.5rem] items-center justify-center">
+        <div className="flex md:gap-[2.5rem] gap-5 md:flex-row flex-col md:items-center justify-start">
           <div className="flex flex-col gap-1 rounded-sm">
             <p>Experience</p>
             <select
@@ -165,7 +165,7 @@ const AddDoctor = () => {
                 handleDoctorFrom(e);
               }}
               required
-              className="border border-[#dddd] rounded-sm bg-transparent p-2 w-[26rem]"
+              className="border border-[#dddd] rounded-sm bg-transparent p-2 md:w-[26rem]"
             >
               {experienceLevels.map((cur, id) => {
                 return (
@@ -186,7 +186,7 @@ const AddDoctor = () => {
                 handleDoctorFrom(e);
               }}
               required
-              className="border border-[#dddd] rounded-sm bg-transparent p-2 w-[26rem]"
+              className="border border-[#dddd] rounded-sm bg-transparent p-2 md:w-[26rem]"
               placeholder="Doctors fees"
             />
           </div>

@@ -6,25 +6,25 @@ import { RiHome2Line } from "react-icons/ri";
 import { FaRegCalendarAlt } from "react-icons/fa";
 const SideBar = () => {
   const navLinkClass = ({ isActive }) =>
-    `w-full text-text flex items-center gap-2 p-3 pl-[2.4rem] text-[1.1rem] transition
+    `w-full text-text flex items-center gap-2 p-3 md:pl-[2.4rem] pl-[1rem] text-[1.1rem] transition
     ${isActive ? "bg-blueTrans border-r-4 border-blue" : "hover:bg-[#f8f9fd]"}`;
   return (
-    <div className="pt-[6rem] bg-white h-screen w-[18rem] flex flex-col border-r border-[#dddddd] fixed">
+    <div className="pt-[6rem] bg-white h-screen md:w-[18rem] flex flex-col border-r border-[#dddddd] fixed">
       <NavLink to="." className={navLinkClass}>
-        <CgAddR className="text-[1.5rem]" />
-        Add Doctor
+        <CgAddR className="md:text-[1.5rem] text-[1.4rem]" />
+        <p className="hidden md:block"> Add Doctor</p>
       </NavLink>
       <NavLink to="all-doctor" className={navLinkClass}>
-        <FiUsers className="text-[1.5rem]" />
-        Doctors List
+        <FiUsers className="md:text-[1.5rem] text-[1.4rem]" />
+        <p className="hidden md:block"> Doctors List</p>
       </NavLink>
       <NavLink to="dashboard" className={navLinkClass}>
-        <RiHome2Line className="text-[1.5rem]" />
-        Dashboard
+        <RiHome2Line className="md:text-[1.5rem] text-[1.4rem]" />
+        <p className="hidden md:block"> Dashboard</p>
       </NavLink>
       <NavLink to="appointments" className={navLinkClass}>
-        <FaRegCalendarAlt className="text-[1.5rem]" />
-        Appointments
+        <FaRegCalendarAlt className="md:text-[1.5rem] text-[1.4rem]" />
+        <p className="hidden md:block"> Appointments</p>
       </NavLink>
     </div>
   );

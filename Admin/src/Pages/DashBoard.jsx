@@ -21,9 +21,10 @@ const DashBoard = () => {
   }
 
   return (
-    <div className="section_margin sidebar_margin w-max">
-      <div className="flex items-center gap-[2rem]">
-        <div className="flex bg-white border-2 w-[15rem] border-[#e4e4e4dd] px-3 py-5 items-center gap-5 rounded-md cursor-pointer">
+    <div className="section_margin sidebar_margin md:w-max">
+      <div className="md:grid-cols-3 grid-cols-1 grid md:gap-[2rem] gap-3">
+
+        <div className="flex bg-white border-2 md:w-[15rem] w-[94%] border-[#e4e4e4dd] px-3 py-5 items-center gap-5 rounded-md cursor-pointer">
           <div className="bg-blueTrans p-2 rounded-md">
             <svg
               width="35"
@@ -52,7 +53,7 @@ const DashBoard = () => {
           </div>
         </div>
 
-        <div className="flex bg-white border-2 w-[15rem] border-[#e4e4e4dd] px-3 py-5 items-center gap-5 rounded-md cursor-pointer">
+        <div className="flex bg-white border-2 md:w-[15rem] w-[94%] border-[#e4e4e4dd] px-3 py-5 items-center gap-5 rounded-md cursor-pointer">
           <div className="bg-blueTrans p-2 rounded-md">
             <svg
               width="29"
@@ -75,7 +76,7 @@ const DashBoard = () => {
           </div>
         </div>
 
-        <div className="flex bg-white border-2 w-[15rem] border-[#e4e4e4dd] px-3 py-5 items-center gap-5 rounded-md cursor-pointer">
+        <div className="flex bg-white border-2 md:w-[15rem] w-[94%] border-[#e4e4e4dd] px-3 py-5 items-center gap-5 rounded-md cursor-pointer">
           <div className="bg-blueTrans p-2 rounded-md">
             <svg
               width="42"

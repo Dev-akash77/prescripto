@@ -97,4 +97,10 @@ body {
   .auth_main {
     box-shadow: none;
   }
+  .sidebar_margin{
+    margin-left: 4.2rem;
+  }
+  .section_margin {
+    margin-top: 5rem;
+  }
 }

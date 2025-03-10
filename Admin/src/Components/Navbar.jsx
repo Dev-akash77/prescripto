@@ -12,14 +12,14 @@ const Navbar = () => {
           <img
             src="https://prescripto-admin.vercel.app/assets/admin_logo-BYur65Lc.svg"
             alt="the logo of Prescripto"
-            className="w-[10rem]"
+            className="md:w-[10rem] w-[9.3rem]"
           />
           <span className="border rounded-full px-2 border-black text-sm cc py-[.1rem]">
             {doctorToken ? "Doctor" : "Admin"}
           </span>
         </Link>
         <div
-          className="bg-blue text-white px-[2.5rem] py-2 md:rounded-3xl rounded-lg text-[.9rem] cursor-pointer"
+          className="bg-blue text-white md:px-[2.5rem] px-[1rem] py-2 md:rounded-3xl rounded-lg text-[.9rem] cursor-pointer"
           onClick={() => {
             setAdminToken(false);
             setDoctorToken(false);
