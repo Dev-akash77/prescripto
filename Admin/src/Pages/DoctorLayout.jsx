@@ -20,7 +20,7 @@ const DoctorLayout = () => {
   return (
     <div className="flex flex-col h-screen">
       <Navbar />
-      <div className="flex gap-4 flex-1 p-4">
+      <div className="flex gap-4 flex-1 md:p-4">
         <DoctorSideBar />
         <div className="flex-1 h-screen">
           <Outlet />

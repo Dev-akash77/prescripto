@@ -22,7 +22,7 @@ const Appopointment = () => {
     <div className="section_margin sidebar_margin">
       <div className="flex flex-col px-4  bg-white ">
         {/* Header Row */}
-        <div className="-mx-4 -mt-3 grid grid-cols-8 gap-5 px-4 py-3 bg-gray-100">
+        <div className="-mx-4 -mt-3 md:grid grid-cols-8 gap-5 px-4 py-3 bg-gray-100 hidden mb-2">
           <p>#</p>
           <p>Patient</p>
           <p>Age</p>
@@ -49,17 +49,27 @@ const Appopointment = () => {
           }
           return (
             <div
-              className="-mx-4  grid grid-cols-8 gap-5 text-[#464646dd] border-b border-[#dddd] px-4 py-3 hover:bg-[#fefefe] cursor-pointer duration-300"
+              className="-mx-4  grid md:grid-cols-8 grid-cols-2 gap-5 text-[#464646dd] border-b border-[#dddd] md:px-4 py-3 pl-1 pr-5 hover:bg-[#fefefe] cursor-pointer duration-300"
               key={cur._id}
             >
-              <p>{id + 1}</p>
-              <p className="capitalize">{cur.userData.name}</p>
-              <p>{calculateAge(cur.userData.dob)}</p>
-              <p className="w-max capitalize">{cur.slotDate} </p>
-              <p className="w-max capitalize">{cur.slotTime} </p>
-              <p className="w-max">{cur.doctorData.name}</p>
-              <p>${cur.doctorData.fees}</p>
-              <div className="w-[2rem] h-[2rem] bg-[#ff898939] flex items-center justify-center rounded-full cursor-pointer text-red-600">
+              <p className="md:block hidden">{id + 1}</p>
+              <p className="capitalize md:text-base text-lg">
+                {cur.userData.name}
+              </p>
+              <p className="md:text-base text-lg">
+                {calculateAge(cur.userData.dob)}
+              </p>
+              <p className="w-max capitalize md:text-base text-lg">
+                {cur.slotDate}{" "}
+              </p>
+              <p className="w-max capitalize md:text-base text-lg">
+                {cur.slotTime}{" "}
+              </p>
+              <p className="w-max md:text-base text-lg">
+                {cur.doctorData.name}
+              </p>
+              <p className="md:text-base text-lg">${cur.doctorData.fees}</p>
+              <div className="w-[2rem] h-[2rem] bg-[#ff898939] md:flex items-center hidden justify-center rounded-full cursor-pointer text-red-600">
                 {cur.cancle || cur.isCompleate ? (
                   <MdDelete
                     onClick={() => {
@@ -72,6 +82,27 @@ const Appopointment = () => {
                       handleCancleAppointment(cur._id);
                     }}
                   />
+                )}
+              </div>
+              <div className="flex items-center col-span-full md:hidden justify-center text-white ">
+                {cur.cancle || cur.isCompleate ? (
+                  <p
+                    className="bg-red-500 w-full cc rounded-sm cursor-pointe py-2"
+                    onClick={() => {
+                      handleDeleteAppointment(cur._id);
+                    }}
+                  >
+                    Delete Appoinment
+                  </p>
+                ) : (
+                  <p
+                    className="bg-red-500 w-full cc rounded-sm cursor-pointe py-2"
+                    onClick={() => {
+                      handleCancleAppointment(cur._id);
+                    }}
+                  >
+                    Cancle Appoinment
+                  </p>
                 )}
               </div>
             </div>

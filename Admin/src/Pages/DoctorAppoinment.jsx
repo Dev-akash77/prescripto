@@ -3,10 +3,8 @@ import { StoreContext } from "../Context/Store";
 import Loader from "../UI/Loader";
 
 const DoctorAppoinment = () => {
-  const {
-    doctorAppointmentData,
-    doctorappointmentLoading,
-  } = useContext(StoreContext);
+  const { doctorAppointmentData, doctorappointmentLoading } =
+    useContext(StoreContext);
 
   if (doctorappointmentLoading) {
     return (
@@ -20,7 +18,7 @@ const DoctorAppoinment = () => {
     <div className="section_margin sidebar_margin">
       <div className="flex flex-col px-4 bg-white ">
         {/* Header Row */}
-        <div className="-mx-4 -mt-3 grid grid-cols-8 gap-5 px-4 py-3 bg-gray-100">
+        <div className="-mx-4 -mt-3 md:grid grid-cols-8 gap-5 px-4 py-3 bg-gray-100 hidden mb-2">
           <p>#</p>
           <p>Patient</p>
           <p>Payment</p>
@@ -47,25 +45,33 @@ const DoctorAppoinment = () => {
         }
         return (
           <div
-            className={`grid grid-cols-8 gap-5 text-[#464646dd] border-b border-[#dddd] px-4 py-3 hover:bg-[#fefefe] cursor-pointer duration-300 `}
+            className={`grid grid-cols-2 gap-5 text-[#464646dd] border-b border-[#dddd] px-4 py-3 hover:bg-[#fefefe] cursor-pointer duration-300 `}
             key={cur._id}
           >
-            <p>{id + 1}</p>
-            <p className="capitalize">{cur.userData.name}</p>
-            <p className="w-max">
+            <p className="md:block hidden">{id + 1}</p>
+            <p className="capitalize  md:text-base text-lg">
+              {cur.userData.name}
+            </p>
+            <p className="w-max  md:text-base text-lg">
               {cur.payment ? <span>Received</span> : <span>Processed</span>}
             </p>
-            <p>{calculateAge(cur.userData.dob)}</p>
-            <p className="w-max capitalize">{cur.slotDate} </p>
-            <p className="w-max capitalize">{cur.slotTime} </p>
-            <p>${cur.doctorData.fees}</p>
+            <p className=" md:text-base text-lg">
+              {calculateAge(cur.userData.dob)}
+            </p>
+            <p className="w-max capitalize md:text-base text-lg">
+              {cur.slotDate}{" "}
+            </p>
+            <p className="w-max capitalize  md:text-base text-lg">
+              {cur.slotTime}{" "}
+            </p>
+            <p className=" md:text-base text-lg">${cur.doctorData.fees}</p>
 
             {cur.cancle ? (
-              <p className="text-red-700">Cancled</p>
+              <p className="text-red-700 text-lg font-semibold">Cancled</p>
             ) : cur.isCompleate ? (
-              <p className="text-green-700">Done</p>
+              <p className="text-green-700  text-lg font-semibold">Done</p>
             ) : (
-              <p className="text-yellow-700">Pending</p>
+              <p className="text-yellow-700  text-lg font-semibold">Pending</p>
             )}
           </div>
         );

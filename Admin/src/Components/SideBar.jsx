@@ -15,7 +15,7 @@ const SideBar = () => {
         <p className="hidden md:block"> Add Doctor</p>
       </NavLink>
       <NavLink to="all-doctor" className={navLinkClass}>
-        <FiUsers className="md:text-[1.5rem] text-[1.4rem]" />
+        <FiUsers className="md:text-[1.5rem] text-[1.4rem]" /> 
         <p className="hidden md:block"> Doctors List</p>
       </NavLink>
       <NavLink to="dashboard" className={navLinkClass}>
