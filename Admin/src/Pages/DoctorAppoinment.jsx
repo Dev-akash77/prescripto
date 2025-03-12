@@ -45,7 +45,7 @@ const DoctorAppoinment = () => {
         }
         return (
           <div
-            className={`grid grid-cols-2 gap-5 text-[#464646dd] border-b border-[#dddd] px-4 py-3 hover:bg-[#fefefe] cursor-pointer duration-300 `}
+            className={`grid grid-cols-2 md:grid-cols-8 gap-5 text-[#464646dd] border-b border-[#dddd] px-4 py-3 hover:bg-[#fefefe] cursor-pointer duration-300 `}
             key={cur._id}
           >
             <p className="md:block hidden">{id + 1}</p>
