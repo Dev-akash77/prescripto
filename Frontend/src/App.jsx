@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./Components/Layout";
 import About from "./page/About";
 import Doctors from "./page/Doctors";
-import Contact from "./page/Contact";
 import Home from "./page/Home";
 import Details from "./page/Details";
 import ErrorPage from "./page/ErrorPage";
@@ -16,7 +15,12 @@ import Appointment from "./page/Appointment";
 import DoctorsLayout from "./page/All_Doctors";
 import Doctor_Speciality from "./page/Doctor_Speciality";
 import PrivateRoute from "./page/PrivateRoute";
+import aos from "aos";
+import "aos/dist/aos.css"; // Import AOS styles
 const App = () => {
+  useEffect(() => {
+    aos.init({ duration: 1000 });
+  }, []);
   const router = createBrowserRouter([
     {
       path: "/",
@@ -47,10 +51,6 @@ const App = () => {
         {
           path: "/doctors/details/:id",
           element: <Details />,
-        },
-        {
-          path: "/contact",
-          element: <Contact />,
         },
         {
           path: "/profile",

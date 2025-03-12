@@ -21,12 +21,12 @@ const Header = () => {
           </span>
         </Link>
         <div
-          className="flex items-center justify-between md:w-[66%] main_nav_content md:translate-x-0 transform duration-200"
+          className="flex items-center justify-between md:w-[60%] main_nav_content md:translate-x-0 transform duration-200"
           style={isopen ? { transform: "translateX(20%)" } : {}}
         >
        
           <ul className="flex gap-5 nav_content">
-            {["/", "doctors", "about", "contact"].map((cur, id) => {
+            {["/", "doctors"].map((cur, id) => {
               return (
                 <li key={id}>
                   <NavLink

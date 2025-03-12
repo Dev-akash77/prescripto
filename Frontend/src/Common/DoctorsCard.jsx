@@ -5,7 +5,7 @@ const DoctorsCard = ({ data }) => {
   const { image, name, speciality, available,_id } = data;
   const navigate = useNavigate()
   return (
-    <div className="border border-blue rounded-lg overflow-hidden cursor-pointer hover:-translate-y-2 duration-300" onClick={()=>{navigate(`/doctors/details/${_id}`)}}>
+    <div className="border border-blue rounded-lg overflow-hidden cursor-pointer hover:-translate-y-2 duration-300" onClick={()=>{navigate(`/doctors/details/${_id}`)}} data-aos="fade-up">
       <div className="cc w-full bg-blueTrans">
         <img src={image} alt={name} />
       </div>

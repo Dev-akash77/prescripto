@@ -65,7 +65,9 @@ const AppointMentCard = ({ data }) => {
   };
 
   return (
-    <div className="md:border-[#dfdfdfdd] border-black border-t-[.04rem] py-4 flex mt:items-center justify-between md:flex-row flex-col">
+    <div className="md:border-[#dfdfdfdd] border-black border-t-[.04rem] py-4 flex mt:items-center justify-between md:flex-row flex-col" 
+    data-aos="flip-up"
+    data-aos-anchor-placement="top-bottom">
       <div className="flex gap-7 md:flex-row flex-col ">
         <div
           className="bg-blueTrans cc cursor-pointer"
